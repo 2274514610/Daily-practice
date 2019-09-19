@@ -2,9 +2,54 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>Title</title>
+    <style>
+        *{
+            margin:0;
+            padding:0
+        }
+        body{
+            position: relative;
+        }
+        .box1{
+            width:100px;
+            height:100px;
+            background:skyblue;
+            position:absolute;
+            top:10px;
+            left:10px;
+            /*z-index:1000*/
+        /* 第一种方法：使用z-index来给元素层定位置*/
+
+        }
+        .box2{
+            width: 90px;
+            height: 90px;
+            background: gold;
+            position: absolute;
+            top:10px;
+            left: 10px;
+            /*z-index:100*/
+            /*pointer-events: none*/
+        /*第二种方法：利用pointer-events：none，它将不会捕获任何click事件，而是让事件穿过该元素，到达下面的元素。*/
+        }
+    </style>
 </head>
 <body>
-$END$
+<div class="box1">
+</div>
+<div class="box2">
+
+</div>
 </body>
+<script>
+    let box1 = document.querySelector('.box1');
+    let box2 = document.querySelector('.box2');
+    box1.onclick=function(){
+        alert('box1被点击了')
+    };
+    box2.onclick=function(){
+        alert('box2被点击了')
+    }
+</script>
 </html>

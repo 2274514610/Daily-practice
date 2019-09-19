@@ -2,9 +2,47 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>Title</title>
+    <style>
+        /**{*/
+        /*    padding:0;*/
+        /*    margin:0;*/
+        /*}*/
+        /*.parent{*/
+        /*    position:absolute;*/
+        /*    left:0;*/
+        /*    top: 0;*/
+        /*    right: 0;*/
+        /*    bottom: 0;*/
+        /*    margin: auto;*/
+        /*    width:200px;*/
+        /*    height:200px;*/
+        /*    background:#409eff;*/
+        /*}*/
+        /*.child{*/
+        /*    width: 50%;*/
+        /*    height: 50%;*/
+        /*    background:#FF6699;*/
+        /*}*/
+        .parent{
+            width: 200px;
+            height: 100px;
+            background: #409eff;
+        }
+        .child{
+            width:0px;
+            height:0px;
+            background: #FF6699;
+            padding-top: 50%;
+            padding-left: 50%;
+        /*子元素的padding如果设置百分比，不论垂直方向还是水平方向，都相对于直接父元素的宽度，而与父元素的height无关。*/
+        /*子元素的初始宽高为0，通过padding可以将父元素撑大*/
+        }
+    </style>
 </head>
 <body>
-$END$
+<div class="parent">
+    <div class="child"></div>
+</div>
 </body>
 </html>
