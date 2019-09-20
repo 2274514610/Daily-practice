@@ -2,9 +2,30 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>Title</title>
 </head>
 <body>
-$END$
+<!--需要了解的属性是原生js的Object.definePrototype(obj,prop,desc)-->
+<!--
+obj:需要定义属性的当前对象
+prop:当前需要定义的属性名
+desc:属性描述符
+-->
+<h1>原生js双向绑定及其应用</h1>
+<input type="text" id="aa">
+<span id="bb"></span>
 </body>
+<script>
+let obj = {};
+Object.defineProperty(obj,'test',{
+    set(val) {
+        document.querySelector('#aa').value = val;
+        document.querySelector('#bb').innerHTML = val;
+    }
+});
+console.log(document.querySelector('#aa'));
+document.querySelector('#aa').onkeyup = function(e){
+    obj.test = e.target.value;
+}
+</script>
 </html>
