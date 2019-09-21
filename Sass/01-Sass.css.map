@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAEA,OAAO;EACL,KAAK,EAAC,KAAK;EACX,MAAM,EAAC,KAAK;EACZ,gBAAgB,EALN,IAAI;;AAOhB,EAAE;EACA,gBAAgB,EARN,IAAI",
+"sources": ["../../../%E9%9D%A2%E8%AF%95%E5%A4%8D%E4%B9%A0/mycode%20HTML/Sass/01-Sass.scss"],
+"names": [],
+"file": "01-Sass.css"
+}
