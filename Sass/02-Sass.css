@@ -1,0 +1,23 @@
+.wrap {
+  background: #6633FF; }
+  .wrap::after {
+    content: '';
+    display: block;
+    clear: both; }
+  .wrap h1 {
+    font-size: 20px;
+    color: #409eff;
+    border-bottom: 1px solid #ff0000;
+    line-height: 2;
+    float: left;
+    padding-right: 10px; }
+  .wrap .tang {
+    line-height: 1.5;
+    color: #ff0;
+    float: left; }
+  .wrap .tom {
+    line-height: 1.5;
+    color: #FF6699;
+    float: left; }
+
+/*# sourceMappingURL=02-Sass.css.map */

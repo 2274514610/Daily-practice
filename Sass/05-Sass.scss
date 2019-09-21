@@ -1,0 +1,12 @@
+$rem: 1rem;
+@function px2rem($n){
+  @return $n*$rem/50
+};
+html{
+  font-size:50px;
+}
+.tom{
+  width:px2rem(1000);
+  height:px2rem(300);
+  background:#FF6699;
+}

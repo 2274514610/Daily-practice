@@ -1,10 +1,12 @@
-$main-color:#ff0;
-
+$main-color: #ff0;
+$border: 1px solid #f00;
 .parent{
   width:500px;
   height:300px;
   background-color:$main-color;
+  border:$border;
 }
 h1{
   background-color:$main-color;
+  border:$border;
 }
