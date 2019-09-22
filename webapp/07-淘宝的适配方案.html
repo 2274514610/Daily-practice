@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./07-Sass.css">
+</head>
+<body>
+<!--<h1>淘宝方案</h1>-->
+<!--&lt;!&ndash;flexible&ndash;&gt;-->
+<!--css = (设备宽度/设计稿宽度) * 设计稿元素尺寸大小-->
+<!--X*rem = (设备宽度/设计稿宽度) * 设计稿元素尺寸大小-->
+<!--1rem = deviceWidth(设备宽度)/10；-->
+<!--X = (10/设计稿宽度) * 设计稿元素尺寸大小 (单位是rem，一般都用sass的函数进行计算)-->
+<!--eg:-->
+<!--设计稿宽度为750px，设计稿元素尺寸大小为88px；-->
+<!--X = (10/750) * 88rem (用sass的函数进行计算)-->
+<div class="box">
+    淘宝方案
+</div>
+</body>
+<script>
+    function SetRem() {
+        let html = document.documentElement;
+        let deviceWidth = document.body.clientWidth || html.clientWidth;
+        html.style.fontSize = deviceWidth/10 + 'px';
+        document.body.style.fontSize = '12px';
+    };
+    SetRem();
+    window.onresize = function() {
+        SetRem()
+    }
+</script>
+</html>

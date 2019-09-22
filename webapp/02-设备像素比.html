@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>设备像素比</h1>
+<h2>手机分辨率提升带来的问题</h2>
+<ol>
+    <li>
+        原本320*480的网站不能继续使用了，以iphone4为例，在640*960这个分辨率下，原来320*480的网站放在
+        iphone4上只占它的1/4，为了解决这个问题，就引入了设备像素比。
+    </li>
+    <p>什么是设备像素比？</p>
+    <div>
+        设备像素比是手机提前内置好的。iphone4的设备像素比就是内置的2。视口加入后，device-width并不等于设备的物理像素640px,
+        而是等于320px。为什么？当加入视口后，如果设备的device-width是320px的话，就可以完美的适配原本iphone3gs上出现的网站，
+        从而解决这个问题。  因为iphone4的物理像素是640px,逻辑像素是320px(css能够控制的像素)。那么640/320 = 2就称为iphone4
+        的设备像素比。
+        <h1>
+            device-width = 物理像素/设备像素比
+        </h1>
+        所以，iphone4的css一行的宽度刚好为320像素，完美适配以前的iphone3gs。
+        <h1>设备像素比的缩写是dpr</h1>
+    </div>
+</ol>
+</body>
+</html>

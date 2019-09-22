@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Title</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        /*p {*/
+        /*    width: 980px;*/
+        /*    background: #FF6699;*/
+        /*}*/
+
+        p{
+            width: 320px;
+            background: #409eff;
+        }
+    </style>
+</head>
+<body>
+<!--<h1>默认视口为980，为了兼容互联网的网页</h1>-->
+<!--<p>-->
+<!--    初代iphone的屏幕分辨率为320*480，没有办法兼容PC端网页，乔布斯希望能让手机端去访问PC端的网页。-->
+<!--    当时主流网页的PC端的默认宽度是980像素以内，那么为了解决页面的显示问题，就提出了默认视口的概念。-->
+<!--    也就是说假设页面的宽度为980，css在一页的范围内，宽度为980.-->
+<!--</p>-->
+
+<h1>随着iPhone的火爆，以及iphone3gs的火爆</h1>
+<p>
+    于是，有的互联网公司专门为iphone手机去设计相应的手机端页面，为了适配相应的设配，最好是按照设备的宽度去写
+    css，那么当时的设计稿应该是320*480px,因为有默认视口，写320px的css是占不满一行的，这个时候引入了视口的概念。
+    <strong>
+        &lt;meta name='viewport' content='width=device-width'&gt;
+    </strong>
+    <strong>
+        那么此时一行css的宽度就是320px,这个时候，前端工程师就可以按照320*480的设计稿去写相应的页面了，同时因为这个
+        页面不需要缩放了，我们又给视口添加了概念。叫user-scale。如下：
+        <strong>
+            &lt;meta name='viewport' content='width=device-width' user-scalable=no,initial-scale=1.0,
+            maximum-scale=1.0,minimum-scale=1.0&gt;
+        </strong>
+    </strong>
+</p>
+</body>
+</html>

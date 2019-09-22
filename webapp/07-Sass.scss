@@ -1,0 +1,14 @@
+//X = (10/750) * 88
+$rem:1rem;
+@function px2rem($n) {
+  @return (10/750)*$n*$rem;
+}
+*{
+  padding: 0;
+  margin: 0;
+}
+.box{
+  background:#FF6699;
+  width:px2rem(375);
+  height:px2rem(100)
+}

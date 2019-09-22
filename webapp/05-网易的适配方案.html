@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<div>
+    css = 设备宽度/设计稿的宽度*设计稿元素的尺寸   ===》设计稿是750*1334
+    设计稿上标注的一个元素的尺寸的大小是100px;
+    把这么个东西写在iphone6上，width？
+    通过公式进行计算可得：css = 375/750 *100px = 50px
+</div>
+<div>
+    可是在Android上，它的设备宽度发生了改变，不是375怎么办？
+    假设Android的设备宽度是800,width?
+    通过公式计算：css = 800/750 * 100
+</div>
+<div>
+    网易的方案：
+    X*rem = 设备宽度/设计稿的宽度*设计稿元素的尺寸
+    rem = {(设备宽度/设计稿的宽度)*设计稿元素的尺寸}/X
+    假设X = 0.01设计稿元素的尺寸
+    化简公式可得：rem = (设备宽度/设计稿的宽度) * 100
+    rem = 设备宽度/(设计稿的宽度/100)
+    以750的设计稿为例：
+</div>
+</body>
+<script>
+    function SetRem(){
+        let html = document.documentElement;
+        let deviceWidth = document.body.clientWidth || document.documentElement.clientWidth;
+        html.style.fontSize = deviceWidth / 7.5 + 'px';
+        document.body.style.fontSize = '12px'
+    }
+    SetRem();
+    window.onresize = function(){
+        SetRem();
+    }
+</script>
+</html>
