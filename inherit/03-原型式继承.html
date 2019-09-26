@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    function creatObj(o){
+        function F (){}
+        F.prototype = o
+        return new F()
+    }
+    let person = {
+        name:'mortal',
+        body:['mortal','mortal1']
+    }
+
+    let person1 = new creatObj(person)
+    let person2 = new creatObj(person)
+
+    console.log(person1.name)
+    person1.body.push('mortal3')
+    console.log(person2.body)
+    //缺点: 同原型链继承一样，每个实例对引用类型属性的修改都会被其他的实例共享
+</script>
+</html>
