@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    let arr = [1, 2, 3, 4, 5]
+
+    function SumReduce(arr, sum, index) {
+        if (++index < arr.length + 1) {
+             sum += arr[index - 1]
+            SumReduce(arr, sum, index)
+        }
+        console.log(sum);
+    }
+
+    if (arr.length == 1) {
+        console.log(arr[0])
+    } else {
+        SumReduce(arr, sum=0,index=0)
+
+    }
+</script>
+</html>
