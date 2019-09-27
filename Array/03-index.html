@@ -8,21 +8,27 @@
 
 </body>
 <script>
+    //使用递归的方法手写一个reduce方法
     let arr = [1, 2, 3, 4, 5]
 
-    function SumReduce(arr, sum, index) {
-        if (++index < arr.length + 1) {
-             sum += arr[index - 1]
-            SumReduce(arr, sum, index)
+    function myReduce(arr) {
+        let sum = 0;
+        let index = 0;
+
+        function myReduce1(item1, item2) {
+            sum += item2;  // 1  3  6  10  15
+            if (++index < arr.length) { //0<4 1<4 2<4  3<4 4<4?
+                //1 2 3 4
+                myReduce1(sum, arr[index])
+            }
         }
-        console.log(sum);
+        if (arr.length == 1) {
+            console.log(arr[0])
+        } else {
+            myReduce1(0, arr[0]);
+            console.log(sum)
+        }
     }
-
-    if (arr.length == 1) {
-        console.log(arr[0])
-    } else {
-        SumReduce(arr, sum=0,index=0)
-
-    }
+    myReduce(arr)
 </script>
 </html>
