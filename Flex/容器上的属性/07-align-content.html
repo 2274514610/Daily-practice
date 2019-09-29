@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        .box{
+            width: 500px;
+            height: 500px;
+            border: 1px solid #000;
+            display: flex;
+            flex-wrap: wrap;
+            /*align-content: stretch;  !*默认值stretch*!*/
+            align-content: flex-start; /*垂直交叉轴的开始*/
+            /*align-content: flex-end; !*垂直交叉轴的结尾*!*/
+            /*align-content: space-around;*/
+            /*align-content: space-between;*/
+            /*align-content: center;*/
+        }
+        .child{
+            width: 100px;
+            height: 100px;
+            background: #409eff;
+            border: 1px solid #000;
+        }
+    </style>
+</head>
+<body>
+<div class="box">
+    <div class="child">1</div>
+    <div class="child">2</div>
+    <div class="child">3</div>
+    <div class="child">4</div>
+    <div class="child">5</div>
+    <div class="child">6</div>
+    <div class="child">7</div>
+</div>
+</body>
+</html>

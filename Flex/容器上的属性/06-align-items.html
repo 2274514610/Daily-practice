@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        .box{
+            width: 500px;
+            height: 500px;
+            border: 1px solid #000000;
+            display: flex;
+            justify-content: flex-start;
+
+            /*align-items: stretch;!*默认值是stretch*!*/
+            /*align-items: flex-start;*/
+            align-items: flex-end; /*底部对齐*/
+            /*align-items:center; !*中间对齐*!*/
+            /*align-items: baseline;  !*基线*!*/
+        }
+        .child{
+            width: 100px;
+            /*height: 100px;*/
+            border: 1px solid #000000;
+            background: #409eff;
+        }
+        .child:first-child{
+            line-height: 50px;
+        }
+    </style>
+</head>
+<body>
+<div class="box">
+    <div class="child">1</div>
+    <div class="child">2</div>
+    <div class="child">3</div>
+</div>
+</body>
+</html>

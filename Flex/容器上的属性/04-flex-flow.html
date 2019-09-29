@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        /*flex-flow是 flex-direction和flex-wrap的合体*/
+        .box {
+            width: 500px;
+            height: 500px;
+            display: flex;
+
+            /*flex-flow:row wrap;  !*沿着水平主轴排列，换行*!*/
+            /*flex-flow: row nowrap;*/
+            /*flex-flow: row-reverse wrap;*/
+            /*flex-flow: column wrap;  !*沿垂直交叉轴排列，且换行*!*/
+            flex-flow: column nowrap;
+            /*flex-flow: column-reverse wrap;*/
+            border: 1px solid #000000;
+        }
+
+        .child {
+            width: 100px;
+            height: 100px;
+            border: 1px solid #000;
+            background: #409eff;
+        }
+    </style>
+</head>
+<body>
+<div class="box">
+    <div class="child">1</div>
+    <div class="child">2</div>
+    <div class="child">3</div>
+    <div class="child">4</div>
+    <div class="child">5</div>
+    <div class="child">6</div>
+    <div class="child">7</div>
+</div>
+</body>
+</html>
