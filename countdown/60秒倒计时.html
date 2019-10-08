@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="box">
+    <h2>剩余时间:<span class="clock">60</span>秒</h2>
+</div>
+<button class="btn">点击</button>
+</body>
+<script>
+    let clock = document.querySelector('.clock');
+    let button = document.querySelector('button');
+    let timeClock;
+    function sendCode(){
+        let timer_num = 60;
+        timeClock = setInterval(function(){
+            timer_num--;
+            clock.innerHTML = timer_num;
+            if(timer_num == 0){
+                clearInterval(timeClock);
+                clock.innerHTML = 60
+            }
+
+        },1000)
+    }
+    button.onclick = function(){
+        sendCode()
+    }
+</script>
+</html>

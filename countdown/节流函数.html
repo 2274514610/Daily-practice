@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<button>提交</button>
+</body>
+<script>
+    let btn = document.getElementsByTagName('button')[0];
+    const throttle = (fn,delay)=>{
+        let flag = true;  //先执行一次
+        return(...args)=>{
+            if(!flag) return;
+            flag = false;   //随即将flag设为false，不再执行
+            setTimeout(()=>{
+                fn.apply(this,args);
+                flag = true;  //在两秒之后，再次执行
+            },delay)
+        }
+    };
+    btn.onclick = throttle(()=>{
+        console.log('我被执行了');
+    },2000)
+</script>
+</html>
