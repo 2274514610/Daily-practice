@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .active{
+            background: #409eff;
+        }
+    </style>
+</head>
+<body>
+<p>我是一只快乐的唐老鸭1</p>
+<p>我是一只快乐的唐老鸭2</p>
+<p>我是一只快乐的唐老鸭3</p>
+<p>我是一只快乐的唐老鸭4</p>
+<p>我是一只快乐的唐老鸭5</p>
+</body>
+<script>
+    let ps = document.querySelectorAll('p');
+    for(let i = 0;i<ps.length;i++){
+        ps[i].onclick = function(){
+            for(let n = 0;n<ps.length;n++){
+                ps[n].className = ''
+            }
+            this.className = 'active';
+        }
+    }
+</script>
+</html>
