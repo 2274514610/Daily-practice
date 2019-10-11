@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    // let arr = [1, 2, 1, 2, 3, 4];
+
+    //第一种去重方法，利用indexOf
+    // let arr1 = arr.filter((item, index) => {
+    //    return arr.indexOf(item) == index
+    // });
+    // console.log(arr1);
+
+    //第二种去重方法，利用对象的唯一属性名
+    // let obj = {};
+    // let arr1 = [];
+    // arr.forEach((item)=>{
+    //     if(!obj[item]){
+    //         obj[item] = item;
+    //         arr1.push(item)
+    //     }
+    // })
+    // console.log(obj)
+    // console.log(arr1)
+
+    //第三种去重方法，利用ES6新语法set()
+    // let arr1 = new Set(arr);
+    // let arr2 = Array.from(arr1);
+    // console.log(arr2)
+
+    //数组排序
+    // let arr = [9,6,4,3,1,5]
+    // let arr1 = arr.sort(function(a,b){
+    //     // 如果a-b > 0,则a和b交换位置。当然这样写出来的话是升序排列。如果要降序排则把a-b改成b-a就
+    //     // 可以实现，就是说b大于a，则b和a交换位置，把大的值排前面。a，b的值就是从arr[0],arr[1]开始比较的，
+    //     // 类似冒泡排序。
+    //     return a-b  //升序  默认是升序
+    //     return b-a  //降序
+    // })
+    // console.log(arr1);
+
+    //使用sort()去给json对象数组排序，甚至双重、多重排序。
+    //总分排序，如果总分相等，我们再按语文成绩排序
+    // let jsonStudents = [
+    //     {name:'xiaoming',totalScore:'197',Chinese:'100',math:'97'},
+    //     {name:'xiaohong',totalScore:'196',Chinese:'99',math:'97'},
+    //     {name:'xiaoli',totalScore:'185',Chinese:'88',math:'97'},
+    //     {name:'xiaozhang',totalScore:'196',Chinese:'96',math:'97'},
+    //     {name:'xiaoqian',totalScore:'196',Chinese:'98',math:'97'},
+    //     {name:'xiaowang',totalScore:'198',Chinese:'99',math:'97'}
+    // ];
+    // jsonStudents.sort(function(a,b){
+    //     let value1 = a.totalScore;
+    //     let value2 = b.totalScore;
+    //     if(value1 == value2){
+    //         return b.Chinese - a.Chinese
+    //     }
+    //     return value2 - value1
+    // });
+    // console.log(jsonStudents)
+
+</script>
+</html>
