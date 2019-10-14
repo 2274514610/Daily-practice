@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="echarts.min.js"></script>
+</head>
+<body>
+<div id="main" style="width: 600px; height: 400px"></div>
+</body>
+<script>
+    let dataAxis = ['小红','小明','小赵','小李','小王','小孙'];
+    let data = [96,94,20,78,65,90];
+    let yMax = 120;
+    let dataShadow = [];
+    for(let i = 0;i<data.length;i++){
+        dataShadow.push(yMax)
+    }
+    let myChart = echarts.init(document.getElementById('main'));
+    option = {
+        title: {
+            text: '九年级三班',
+            subtext: '语文成绩'
+        },
+        xAxis: {
+            data: dataAxis,
+            axisLabel: { //轴标签
+                inside: true,   //inside的意思是文字放在柱状图内部
+                textStyle: {   //文字的样式
+                    color: '#fff'
+                }
+            },
+            axisTick: {  //轴记号
+                show: false
+            },
+            axisLine: {  //x轴是否有实线
+                show: false
+            },
+            z: 10
+        },
+        yAxis: {
+            axisLine: {
+                show: false
+            },
+            axisTick: {
+                show: false
+            },
+            axisLabel: {
+                textStyle: {
+                    color: '#999'
+                }
+            }
+        },
+        dataZoom: [ //缩放条的显示位置
+            {
+                type: 'inside'
+            }
+        ],
+        series: [
+            { //给阴影
+                type: 'bar',
+                itemStyle: {
+                    normal: {color: 'rgba(0,0,0,0.05)'}  //单个柱状图上没有填充的部分
+                },
+                barGap: '-100%', //控制每个柱状图之间的空隙大小
+                barCategoryGap: '60%',  //控制每个柱状图的大小
+                data: dataShadow,
+                animation: false
+            },
+            {
+                type: 'bar',
+                itemStyle: {
+                    normal: {
+                        color: new echarts.graphic.LinearGradient(
+                            0,0,0,1,
+                            [
+                                {offset: 0,color: '#83bff6'},
+                                {offset: 0.5,color: '#188df0'},
+                                {offset:1,color: '#188df0'}
+                            ]
+                        )
+                    },
+                    emphasis: {
+                        color: new echarts.graphic.LinearGradient(
+                            0,0,0,1,
+                            [
+                                {offset: 0,color: '#2378f7'},
+                                {offset: 0.7,color: '#2378f7'},
+                                {offset: 1,color: '#83bff6'}
+                            ]
+                        )
+                    }
+                },
+                data: data
+            }
+        ]
+    };
+    //启用数据缩放时，用户点击栏。
+    let zoomSize = 6; //缩放大小
+    myChart.on('click',function(params){
+        console.log(dataAxis[Math.max(params.dataIndex - zoomSize/2 ,0)]);
+        myChart.dispatchAction({
+            type: 'dataZoom',
+            startValue: dataAxis[Math.max(params.dataIndex - zoomSize/2,0)],
+            endValue: dataAxis[Math.min(params.dataIndex + zoomSize/2,data.length - 1)]
+        })
+    });
+    //使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+</script>
+</html>
