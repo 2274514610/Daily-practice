@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <!--    <form>-->
+            <input type="file" :id="id" name="image" class="getImgUrl_file" @change="preview($event)">
+    <!--    </form>-->
+    <!--    <button @click="ExportData()">点我上传</button>-->
+<!--    <input type="text" id="path" size="80" value=""/>-->
+<!--    <input type="button" name="but" size="100" onclick="BrowseFolder()" value="选择文件夹"/>-->
+
+</div>
+
+</body>
+<!--<script>-->
+<!--    function BrowseFolder() {-->
+<!--        try {-->
+<!--            var Message = "请选择文件夹";  //选择框提示信息-->
+<!--            var Shell = new ActiveXObject("Shell.Application");-->   <!-- ActiveXObject仅可以在IE中使用-->
+<!--            //var Folder = Shell.BrowseForFolder(0,Message,0x0040,0x11);//起始目录为：我的电脑-->
+<!--            var Folder = Shell.BrowseForFolder(0, Message, 0); //起始目录为：桌面-->
+<!--            if (Folder != null) {-->
+<!--                Folder = Folder.items();  // 返回 FolderItems 对象-->
+<!--                Folder = Folder.item();  // 返回 Folderitem 对象-->
+<!--                Folder = Folder.Path;   // 返回路径-->
+<!--                if (Folder.charAt(Folder.length - 1) != "\\") {-->
+<!--                    Folder = Folder + "\\";-->
+<!--                }-->
+<!--                document.all.savePath.value = Folder;-->
+<!--                return Folder;-->
+<!--            }-->
+<!--        } catch (e) {-->
+<!--            alert(e.message);-->
+<!--        }-->
+<!--    }-->
+<!--</script>-->
+<script src="../js/vue.js"></script>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            imgDataUrl: '',
+            id: 'download'
+        },
+        methods: {
+            preview(event){
+                let files = document.getElementById(this.id).files[0]
+                this.imgDataUrl =this.getObjectURL(files)
+                this.$emit('sendImgUrl',this.imgDataUrl,this.id)
+                console.log(this.imgDataUrl)
+            },
+            getObjectURL (file) {
+                let url = null ;
+                if (window.createObjectURL!=undefined) { // basic
+                    url = window.createObjectURL(file) ;
+                }else if (window.webkitURL!=undefined) { // webkit or chrome
+                    url = window.webkitURL.createObjectURL(file) ;
+                }else if (window.URL!=undefined) { // mozilla(firefox)
+                    url = window.URL.createObjectURL(file) ;
+                }
+                return url ;
+            },
+            ExportData(){
+                //定义文件内容，类型必须为Blob 否则createObjectURL会报错
+                let content = new Blob([JSON.stringify(this.todos)])
+
+                //生成url对象
+                let urlObject = window.URL || window.webkitURL || window
+                let url = urlObject.createObjectURL(content)
+                //生成<a></a>DOM元素
+                console.log('urlObject',urlObject)
+                console.log('url',url)
+                let el = document.createElement('a')
+                //链接赋值
+                el.href = url
+                el.download =" ";
+                //必须点击否则不会下载
+                el.click()
+                //移除链接释放资源
+                urlObject.revokeObjectURL(url)
+            }
+        }
+    })
+</script>
+</html>

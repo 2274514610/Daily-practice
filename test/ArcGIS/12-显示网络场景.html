@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--添加对CSS和API的引用-->
+    <link rel="stylesheet" href="https://js.arcgis.com/4.13/esri/themes/light/main.css">
+    <script src="https://js.arcgis.com/4.13/"></script>
+    <style>
+        html, body, #viewDiv {
+            padding: 0;
+            margin: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+<div id="viewDiv"></div>
+</body>
+<script>
+    //如何从ArcGIS Online加载和显示预配置Web场景
+    //应用程序可以加载和显示3D网络场景先前使用场景查看器要么ArcGIS Pro(专业版)。Web场景包含设置场景所需的所有设置，
+    //例如范围，底图，图层和样式以及标签。Web场景作为项目存储在ArcGIS Online要么ArcGIS 企业版门户。通过访问门户
+    //并通过ID请求项目来加载Web场景。加载项目时，所有设置都将应用于场景和图层，从而节省了您自己设置的时间。在‘创建
+    //Web场景’教程中或使用ArcGIS Pro(专业版)了解有关使用Web场景的更多信息。
+
+    //我们将构建一个应用程序，该应用程序加载并显示存储在其中的预配置Web场景。ArcGIS Online
+
+    require([
+        //add
+        'esri/WebScene',   //webScene  网络场景
+        'esri/views/SceneView',
+        //add
+        'esri/widgets/Legend'
+    ],function(WebScene,SceneView,Legend){
+        //将portalItem ID 设置为579f97b2f3b94d4a8e48a5f140a6639b。将设置webscene为map。
+        //add
+        let webscene = new WebScene({
+            portalItem: {  //门户项目
+                id: "579f97b2f3b94d4a8e48a5f140a6639b"
+            }
+        });
+        let view = new SceneView({
+            container: 'viewDiv',
+            map: webscene
+        });
+
+
+
+        //添加图例
+        //为了使您的地图应用程序更有意义，请尝试将‘图例’小部件添加到top-right视图DefaultUI的区域。访问文档以了解
+        //有关小部件以及如何在视图中放置小部件的更多信息。
+
+        //add
+        let legend = new Legend({
+            view: view
+        });
+        view.ui.add(legend,'top-right')
+    })
+</script>
+</html>

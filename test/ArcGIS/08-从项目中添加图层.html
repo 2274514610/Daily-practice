@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--添加对CSS和API的引用-->
+    <link rel="stylesheet" href="https://js.arcgis.com/4.13/esri/themes/light/main.css">
+    <script src="https://js.arcgis.com/4.13/"></script>
+    <style>
+        html, body, #viewDiv {
+            padding: 0;
+            margin: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+<div id="viewDiv"></div>
+</body>
+<script>
+    //我们将学习如何从ArcGIS Online加载和显示预配置的图层
+    //应用程序可以访问托管在其上的图层项目ArcGIS Online要么ArcGIS企业版门户。每个图层项目都包含
+    //托管要素图层的设置，例如访问数据的URL，用户绘制图层的样式，弹出式配置和数据过滤器。可以使用
+    //门户网站工具以交互方式预先配置这些设置。应用程序可以通过访问门户并通过ID请求项目来加载图层项目。
+    //加载图层项目的好处是，在加载项目时将应用所有图层设置，从而节省了您自行设置时间的时间。
+
+    //我们将向地图中添加已预先配置并存储在ArcGIS Online中的图层。
+
+    //按ID添加Trailheads层
+    //在浏览器中，转到Trailheads上一层ArcGIS Online并在网址末尾找到商品ID。应该是
+    //33fc2fa407ab40f9add12fe38d5801f5
+
+
+    //在require语句中，添加对Layer模块的引用
+    require([
+        'esri/Map',
+        'esri/views/MapView',
+        //add
+        'esri/layers/Layer'
+    ],function(Map,MapView,Layer) {
+        let map = new Map({
+            basemap: 'topo-vector'
+        });
+        let view = new MapView({
+            container: 'viewDiv',
+            map,
+            center: [-118.80500,34.02700], //经度，纬度
+            zoom: 13
+        });
+        //定义一个函数，该函数将用于向地图添加图层。该函数将等待portalItem加载，然后将图层添加到
+        //指定index位置的地图中。
+        function addLayer(layerItemPromise,index) {
+            return layerItemPromise.then(function(layer) {
+                //更新该addLayer函数以定义一个表达式，该表达式
+                //将‘足迹’限制为仅海拔高度小于250英尺的那些
+                layer.when(function(){
+                   if(layer.title === 'Trails_Styled_Popups') {
+                       layer.definitionExpression = 'ELEV_GAIN < 250';
+                   }
+                });
+                map.add(layer,index)
+            })
+        }
+        //使用静态成员Layer和fromPortalItem方法访问Trailheads(点)层。将id属性设置
+        //portalItem为33fc2fa407ab40f9add12fe38d5801f5。使用该addLayer功能将图层
+        //添加到地图
+        let trailheadsPortalItem = Layer.fromPortalItem({
+            portalItem: {
+                id: "33fc2fa407ab40f9add12fe38d5801f5"
+            }
+        });
+        //add
+        //Trails
+        let trailsPortalItem = Layer.fromPortalItem({
+            portalItem: {
+                id: '52a162056a2d48409fc3b3cbb672e7da'
+            }
+        });
+        //parks
+        let parksPortalItem = Layer.fromPortalItem({
+            portalItem: {
+                id: "83cf97eea04e4a699689c250dd07b975"
+            }
+        });
+        addLayer(trailheadsPortalItem,2).then(addLayer(trailsPortalItem,1)).then(addLayer(parksPortalItem,0))
+        //通过ID添加路径和公园以及开放空间图层
+        //在次使用fromPortalItem方法通过id加载'足迹'(线条)以及"公园"和"开放空间"(多边形)图层。使用该addLayer
+        //功能以正确的绘图顺序加载图层。
+
+        //在‘配置的图层’教程中了解如何预配置图层，在‘样式要素’图层教程中了解如何以编程方式设置要素图层的样式。
+
+
+
+        //使用SQL定义表达式限制图层要素
+        //我们可以通过在显示之前设置值来更新图层属性。例如，我们可以更新popup，renderer或definitionExpression。
+        //更新图层以应用SQL定义的表达式以限制从图层返回的数据(加载后)。更新该addLayer函数以定义一个表达式，该表达式
+        //将‘足迹’限制为仅海拔高度小于250英尺的那些。探索数据并尝试定义自己的表达式。
+    })
+</script>
+</html>

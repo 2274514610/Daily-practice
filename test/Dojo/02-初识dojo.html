@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<script src="js/Dojo.js" data-dojo-config="async: true"></script>
+<body>
+<h1 id="greeting">Hello</h1>
+</body>
+<script type="text/javascript">
+    //Dojo的一些用于HTML DOM操作的基本模块是dojo/dom和dom-construct。它们如何加载这些模块并使它们提供功能，如下所示：
+require([
+    'dojo/dom',
+    'dojo/dom-construct'
+],function (dom,domConstruct) {
+    let greetingNode = dom.byId('greeting');
+    domConstruct.place('<em>Dojo!</em>',greetingNode)
+})
+</script>
+</html>

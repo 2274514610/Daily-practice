@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="root"></div>
+</body>
+<script src="js/babel.js"></script> <!--提供shiv方法，或者es6中的一些方法-->
+<script src="js/react.js"></script> <!--react核心库，提供react的核心方法-->
+<script src="js/react-dom.js"></script> <!--提供react操作dom的api-->
+<script type="text/babel">
+    setInterval(()=>{
+        const clock = (
+            <div>
+                <h1>现在的时间是：</h1>
+                <p>{new Date().toLocaleString()}</p>
+            </div>
+        );
+        ReactDOM.render(clock,document.getElementById('root'))
+    },1000)
+    console.dir(document.getElementById('root'))
+
+</script>
+</html>

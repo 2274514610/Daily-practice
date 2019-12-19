@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="5188ebf0-b404-4582-8ea3-ae2830bfbac6" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/vue test/vue-test/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/vue test/vue-test/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue test/vue-test/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/vue test/vue-test/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue test/vue-test/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/vue test/vue-test/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue test/vue-test/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue test/vue-test/src/App.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue test/vue-test/src/components/HelloWorld.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue test/vue-test/src/components/HelloWorld.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue test/vue-test/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/vue test/vue-test/src/main.js" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="SCSS File" />
+        <option value="Vue Single File Component" />
+        <option value="TypeScript File" />
+        <option value="JavaScript File" />
+        <option value="HTML File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/vue test/vue-test" />
+  </component>
+  <component name="ProjectId" id="1Se87p0cvIafL2UteHIRHscnjvr" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/vue test/vue-test/pbfjs" />
+    <property name="list.type.of.created.stylesheet" value="SCSS" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="ts.external.directory.path" value="D:\WebStorm 2019.2.1\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Hasee\Desktop\day-to-day\test\vue test\vue-test\pbfjs" />
+      <recent name="C:\Users\Hasee\Desktop\day-to-day\test\js" />
+      <recent name="C:\Users\Hasee\Desktop\test" />
+      <recent name="C:\Users\Hasee\Desktop\test\js" />
+      <recent name="C:\Users\Hasee\Desktop\test\display\src\assets" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Hasee\Desktop\day-to-day\test\Dojo\demo" />
+      <recent name="C:\Users\Hasee\Desktop\day-to-day\test\vue test\vue-test\static" />
+      <recent name="C:\Users\Hasee\Desktop\day-to-day\test\vue test" />
+      <recent name="C:\Users\Hasee\Desktop\test\学习echarts" />
+      <recent name="C:\Users\Hasee\Desktop\test\js" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration name="03-类.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="03-类.js" working-dir="$PROJECT_DIR$/TypeScript">
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Node.js.03-类.js" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="5188ebf0-b404-4582-8ea3-ae2830bfbac6" name="Default Changelist" comment="" />
+      <created>1571912535304</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1571912535304</updated>
+      <workItem from="1571912536579" duration="1280000" />
+      <workItem from="1571971122404" duration="1674000" />
+      <workItem from="1571972838432" duration="27226000" />
+      <workItem from="1572575429797" duration="12269000" />
+      <workItem from="1572598581562" duration="2486000" />
+      <workItem from="1572779716027" duration="15260000" />
+      <workItem from="1572834199330" duration="25800000" />
+      <workItem from="1572936820864" duration="617000" />
+      <workItem from="1572953522863" duration="991000" />
+      <workItem from="1573543384342" duration="7113000" />
+      <workItem from="1573610864523" duration="34961000" />
+      <workItem from="1574082948547" duration="4772000" />
+      <workItem from="1574220911894" duration="9000" />
+      <workItem from="1574595839677" duration="13102000" />
+      <workItem from="1574689302745" duration="674000" />
+      <workItem from="1575340824505" duration="666000" />
+      <workItem from="1575352067837" duration="3882000" />
+      <workItem from="1575469023788" duration="3989000" />
+      <workItem from="1575510988869" duration="1825000" />
+      <workItem from="1575518326346" duration="117000" />
+      <workItem from="1575594247198" duration="588000" />
+      <workItem from="1575595242846" duration="7083000" />
+      <workItem from="1576235470196" duration="11769000" />
+      <workItem from="1576457884948" duration="24000" />
+      <workItem from="1576592542477" duration="2484000" />
+      <workItem from="1576679333330" duration="3058000" />
+      <workItem from="1576715890186" duration="51000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+    <option name="exactExcludedFiles">
+      <list>
+        <option value="$PROJECT_DIR$/TypeScript/01-greeter.js" />
+        <option value="$PROJECT_DIR$/TypeScript/02-接口.js" />
+        <option value="$PROJECT_DIR$/TypeScript/03-类.js" />
+      </list>
+    </option>
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

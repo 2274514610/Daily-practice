@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--添加对CSS和API的引用-->
+    <link rel="stylesheet" href="https://js.arcgis.com/4.13/esri/themes/light/main.css">
+    <script src="https://js.arcgis.com/4.13/"></script>
+    <style>
+        html, body, #viewDiv {
+            padding: 0;
+            margin: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+<div id="viewDiv"></div>
+</body>
+<script>
+    //2D地图(MapView)
+    require([
+        'esri/Map',
+        'esri/views/MapView',
+        //对Basemap and VectorTileLayer模块的引用
+        'esri/Basemap',
+        'esri/layers/VectorTileLayer',
+        //add
+        'esri/layers/TileLayer'
+    ], function (Map, MapView, Basemap, VectorTileLayer,TileLayer) {
+        //将样式化的矢量平铺图层添加为底图
+        //在该require语句中，添加对Basemap and vectorTileLayer模块的引用。
+        //用于JavaScript的ArcGIS API 使用AMD模块。保持模块引用和函数参数相同的顺序很重要。
+        //将VectorTileLayer(矢量瓦片图层)作为添加到baseLayer到地图。
+        //将portalItem(门户项目) ID设置为d2ff12395aeb45998c1b154e25d680e5。
+        //更新代码以删除对topo-vector的引用，并将其替换basemap。
+        var basemap = new Basemap({
+            baseLayers: [ //基本层
+                new TileLayer({  //瓦片层
+                    portalItem: {
+                        id: '1b243539f4514b6ba35e7d995890db1d' //世界山体阴影
+                    }
+                }),
+                new VectorTileLayer({ //矢量瓦片图层
+                    portalItem: {
+                        id: 'd2ff12395aeb45998c1b154e25d680e5' //森林公园画布
+                    },
+                    opacity: 0.5
+                })
+            ]
+        });
+        var map = new Map({
+            //更新
+            // basemap: 'topo-vector'
+            basemap: basemap
+        });
+        var view = new MapView({
+            container: 'viewDiv',
+            map: map,
+            center: [-118.80543, 34.02700], //经度,纬度
+            //更新
+            zoom: 3
+        });
+    })
+    //运行代码并浏览"森林和公园画布"底图
+
+    //将山体阴影添加为底图图层
+    //Basemaps可以包含多个baseLayers。要增强地形的矢量样式，请访问ArcGIS Online并找到World Hillshade(山体阴影)图层的ID，
+    //并将其作为TileLayer(瓦片层)添加到该baseLayers属性。
+
+
+    //添加我们自己的自定义矢量底图
+    //尝试使用样式矢量底图教程，并创建自己的底图样式。完成后，找到底图的ID，然后将自己的自定义底图加载到应用程序中。
+</script>
+</html>

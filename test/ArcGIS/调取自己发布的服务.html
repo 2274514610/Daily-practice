@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>调取自己发布的服务</title>
+    <style type="text/css">
+        html, body, #ViewContainer {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+    <!--引入CSS样式-->
+    <link rel="stylesheet" type="text/css" href="https://js/.arcgis.com/4.3/esri/css/main.css">
+    <!--引入dijit中的主题-->
+    <link rel="stylesheet" type="text/css" href="https://js.arcgis.com/4.3/dijit/themes/soria/soria.css">
+    <!--引入js -->
+    <script type="text/javascript" src="https://js.arcgis.com/4.3/"></script>
+</head>
+<body class="soria">  <!--使用soria主题-->
+<div id="ViewContainer" class="view">
+
+</div>
+</body>
+<script type="text/javascript">
+    require([
+        'dojo/dom',   //操作dom
+        'dojo/dom-construct',   //操作dom
+        'dojo/on',   //用于DOM节点和其他事件发出对象的通用事件处理程序模块，提供规范化的事件侦听和事件分派功能。
+        'dojo/_base/declare',  //包含用于定义Dojo类的函数，这些类支持Dojo中的标准面向对象的概念。JavaScript使用基于原型的
+        //继承，而不是基于类的继承(大多数编程语言都使用这种继承)。Dojo提供了使用来模拟基于类的继承的功能`dojo.declare`。
+        'dojo/json',  //是基于标准ES5的JSON对象进行JSON解析和序列化的模块。该模块提供两个功能，parse（）和stringify（）。
+        'dojo/_base/lang',  //与其他`dojo/_base`模块一样，如果我们以传统模式运行Dojo加载程序，则会自动加载该模块。即使它是
+        // 它是自动加载的，我们也应该要求它具有访问其功能的权限：`async:false`。
+        //特征：克隆，克隆对象或节点，返回新内容，而不是引用。将某物传递给clone（），然后会生成该东西的新版本：
+        //使用:ruquire([dojo/_base/lang,'dojo/dom','dojo/dom-attr'],function(lang,dom,attr){
+        // let node = dom.byId('someNode); let newnode = lang.clone(node); attr.set(newnode,'id','someNewId');
+        // })
+        'dojo/_base/url', //定义dojo/_Url用于处理和操纵URL 的对象;
+        'dojo/string',   //是一个提供一些简单的字符串处理使用程序的模块。
+        'dojo/number',   //包含用于用户展示JavaScript Number对象的方法：格式化，解析和舍入。
+        'esri/Map',   //Map类创建一个容器和必须的DOM结构，以添加 '图层','图形','信息窗口'和其他'导航控件'。
+        'esri/geometry/Extent',  //边界框的最小和最大X坐标和Y坐标。
+        'esri/layers/support/TileInfo',  //包含有关ArcGISTiledMapServiceLayer的切片方案的信息。TileInfo没有构造函数。
+        'esri/layers/support/LOD',   //TileLayer具有多个检测限(详细的级别)的。每个LOD对应于给定比例或分辨率的地图。LOD没有构造函数。
+        'esri/geometry/SpatialReference',  //定义视图，图层或任务参数的空间参考。这表示用于在地图中定位地理'要素的投影坐标系'或
+        // '地理坐标系'，每个投影的坐标系都是由众所周知哦的ID（WKID）或定义字符串（WKT）定义。
+        'esri/geometry/Point',   //由X坐标和Y坐标定义的位置。它可以是地图单位或屏幕单位。
+        'esri/views/MapView',   //MapView显示Map实例的2D视图。必须创建一个MapView实例才能以2D渲染地图（连同其操作层和基础层）。要是以3D
+        //形式渲染地图及其图层，请参考SceneView的文档。为了使用地图在DOM中对用户可见，必须创建MapView并至少引用两个对象：Map实例和DOM元素
+        //。分别在map和container属性中设置。除了负责Map及其元素的呈现外，MapView还处理用户与地图之间的交互。
+        'esri/views/SceneView',   //SceneView使用WebGL显示Map或WebScene实例的3D视图。
+        'esri/layers/webTiledLayer',   //WebTiledLayer类提供了一种简单的方法来将非ArcGIS Server地图图块添加为地图的图层。构造函数
+        //通常如下的图案的URL模板：http://some.domain.com/${level}/${col}/${row}/,其中level对应于缩放级别，列和行表示瓷砖的列和行。此模式不是必须
+        //的，但它是当前Web上最常见的模式。
+        //构造函数还接受一个option对象。该subDomains属性可用于指定subDomains在何处提供切片以加速切片检索（使用subDomain绕过浏览器对域的最大并发请求数的限制）。
+        //如果subDomains指定，urlTemplate则应包含一个${subDomain}占位符。选项对象还接受copyright属性，可用于定义将在地图的'归因'
+        //小部件中显示的归因信息。
+        'esri/layers/VectorTileLayer',  //VectorTileLayer呈现缓存的数据切片。它与WebTiledLayer的相似之处在于它呈现了缓存的数据；
+        //但是，WebTileLayer渲染为一系列图像，而不是矢量数据。
+        //与图像缓存不同，矢量切片包含用于渲染切片信息的数据。由于VectorTileLayer中的数据是矢量，因此将其存储在包含几何，属性和样式的
+        //各个图层中。样式信息与图块的几何形状和属性分开存储，并且可以定义多个样式。这意味着可以用多种方式对一组矢量切片进行样式设置，
+        //而不必为每种样式生成新的缓存。这样可以节省空间并加快创建新地图样式的过程。
+        //样式可能包含多个用于渲染相同类型特征的选项。例如，在街道图层中，主要高速公路可能具有三个符号系统选项。也可以在客户端上更改样式，
+        //而不必从服务器请求新的图块，这使地图在客户端上是动态的，同时仍然利用欧冠缓存的矢量数据。
+        'esri/layers/TileLayer',  //TileLayer允许我们使用ArcGIS Server REST API公开的缓存`地图服务`，并将其作为图块图层添加到`地图`。
+        //缓存的服务从缓存访问图块，而不是动态渲染图像。因为它们被缓存，所以平铺的图层比`MapImageLayers`的渲染速度更快。要创建TileLayer
+        //的实例，我们必须引用缓存的地图服务的URL。
+        'esri/layers/MapImageLayer',  //MapImageLayer允许我们显示和分析来自`地图服务中`定义的`子图层`的数据，并导出图像而不是要素。地图服务
+        //图像是根据请求在服务器上动态生成的，该请求包括LOD（详细程度），边界框，api，空间参考和其他选项。导出的图像具有指定的整个地图范围。
+        //与FeatureLayer不同，MapImageLayer处理由服务器而非客户端处理。在某些情况下，将处理任务卸载到服务器可以使MapImageLayer以
+        //更高的性能呈现更多功能。
+        'esri/widgets/LayerList',  //LayerList小部件提供了一种显示图层列表以及打开/关闭其可见性的方法。要从LayerList小部件隐藏地图中的
+        //图层，请将`图层`上的`listMode`属性设为`hide`。有关完全控制窗口小部件样式的信息，请参见`样式`主题。
+        'esri/core/urlUtils',   //使用URL的实用方法。
+        "esri/core/JSONSupport",  //提供用于处理ArcGIS JSON几何对象的实用程序方法。
+        "dojo/domReady!"  //domReady是等待所有DOM元素加载完成，在require相关模块。
+    ])
+</script>
+</html>

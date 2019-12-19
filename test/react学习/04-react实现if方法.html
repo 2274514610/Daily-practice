@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="root"></div>
+</body>
+<script src="js/babel.js"></script> <!--提供shiv方法，或es6的一些方法-->
+<script src="js/react.js"></script> <!--react的核心库，提供react的一些核心方法-->
+<script src="js/react-dom.js"></script> <!--提供react操作DOM的一些api-->
+<script type="text/babel">
+    const sexNum = 1;
+    let str = '';
+    if(sexNum == 1) {
+        str = '我是男孩'  //想让它具有vue中v-if类似的效果，可以直接设置为none,false,undefined
+        // str = false
+    }else {
+        str = '我是女孩'
+    }
+    const element = (
+        <div>{str}</div>
+    )
+    ReactDOM.render(element,document.getElementById('root'))
+</script>
+</html>

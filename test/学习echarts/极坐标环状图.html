@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="echarts-pie" style="width: 690px;height: 350px;"></div>
+</body>
+<script src="../js/echarts.min.js"></script>
+<script>
+    //基于准备好的dom,初始化echarts实例
+    let EchartsPie = echarts.init(document.querySelector('#echarts-pie'));
+    let data1 = [
+        {
+            name: '待建',
+            value: [5, 3, 4, 5, 6, 3, 6, 3, 10]
+        },
+        {
+            name: '在建',
+            value: [3, 4, 5, 7, 9, 10, 12, 4, 8]
+        },
+        {
+            name: '已建',
+            value: [4, 5, 10, 4, 5, 12, 5, 3, 4]
+        }
+    ];
+    let data2 = ['滚装船', '油船', '半潜船', '拖轮', '甲板船', '3+2轴低平板半挂车', '3轴底平板半挂车', '波音757-200SF货机', '25G型铁路客车'];
+    let option = {
+        // tooltip: {
+        //    show: true
+        // },
+        tooltip: { //提示框
+            show: true,
+            trigger: 'item',
+            padding: 10,
+            backgroundColor: '#222',
+            borderColor: '#777',
+            borderWidth: 1,
+            formatter: tooltipFormatter,
+            //     formatter: function (params) {
+            //         console.log(params)
+            //         // let arr = [];
+            //         let str = '';
+            //         str += `${params.data.name}<br>${params.seriesName}:${params.data.value}`
+            //         // for (let i in params) {
+            //         //     let o = {};
+            //         //     o[i] = params[i];
+            //         //     arr.push(o)
+            //         // }
+            //         // console.log(arr)
+            //         // params.forEach((item, index)=>{
+            //
+            //         // });
+            //         return str;
+            //     }
+            // },
+        },
+        //极坐标配置start
+        polar: {
+            center: ['50%', '50%'],
+            radius: 100,
+        },
+        angleAxis: { //极坐标的角度轴
+            type: 'category',
+            data: data2,
+            z: 10
+        },
+        radiusAxis: { //极坐标系的径向轴
+
+        },
+        //极坐标配置 end
+        series: [
+            {
+                type: 'bar',
+                data: [
+                    data1['0'].value['0'],
+                    data1['0'].value['1'],
+                    data1['0'].value['2'],
+                    data1['0'].value['3'],
+                    data1['0'].value['4'],
+                    data1['0'].value['5'],
+                    data1['0'].value['6'],
+                    data1['0'].value['7'],
+                    data1['0'].value['8'],
+                ],
+                coordinateSystem: 'polar',
+                name: data1['0'].name,
+                stack: 'a',
+                itemStyle: {
+                    normal: {
+                        borderWidth: 4,
+                        borderColor: '#ffffff'
+                    },
+                    emphasis: {
+                        borderWidth: 0,
+                        shadowBlur: 10,
+                        shadowOffsetX: 0,
+                        shadowColor: 'rgba(0,0,0,0.5)'
+                    }
+                }
+            },
+            {
+                type: 'bar',
+                data: [
+                    data1['1'].value['0'],
+                    data1['1'].value['1'],
+                    data1['1'].value['2'],
+                    data1['1'].value['3'],
+                    data1['1'].value['4'],
+                    data1['1'].value['5'],
+                    data1['1'].value['6'],
+                    data1['1'].value['7'],
+                    data1['1'].value['8'],
+                ],
+                coordinateSystem: 'polar',
+                name: data1['1'].name,
+                stack: 'a',
+                itemStyle: {
+                    normal: {
+                        borderWidth: 4,
+                        borderColor: '#ffffff'
+                    },
+                    emphasis: {
+                        borderWidth: 0,
+                        shadowBlur: 10,
+                        shadowOffsetX: 0,
+                        shadowColor: 'rgba(0,0,0,0.5)'
+                    }
+                }
+            },
+            {
+                type: 'bar',
+                data: [
+                    data1['2'].value['0'],
+                    data1['2'].value['1'],
+                    data1['2'].value['2'],
+                    data1['2'].value['3'],
+                    data1['2'].value['4'],
+                    data1['2'].value['5'],
+                    data1['2'].value['6'],
+                    data1['2'].value['7'],
+                    data1['2'].value['8'],
+                ],
+                coordinateSystem: 'polar',
+                name: data1['2'].name,
+                stack: 'a',
+                itemStyle: {
+                    normal: {
+                        borderWidth: 3,
+                        borderColor: '#ffffff',
+                    },
+                    emphasis: {
+                        borderWidth: 3,
+                        shadowBlur: 10,
+                        shadowOffsetX: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                }
+            },
+            {
+                name: '总数量',
+                type: 'pie',
+                radius: ['70%', '90%'],
+                avoidLabelOverlap: false,
+                label: {
+                    normal: {
+                        show: true,
+                        position: 'outside',
+                        formatter: '啊啊啊啊啊'
+                    },
+                    emphasis: {
+                        show: true,
+                        textStyle: {
+                            fontSize: '15',
+                            fontWeight: 'normal'
+                        }
+                    }
+                },
+                labelLine: {
+                    normal: {
+                        show: true
+                    }
+                },
+                data: [
+                    {
+                        // value: data['0'].value['0'] + data['1'].value['0'] + data['2'].value['0'],
+                        value: 10,
+                        name: '滚装船'
+                    },
+                    {
+                        // value: data['0'].value['1'] + data['1'].value['1'] + data['2'].value['1'],
+                        value: 10,
+                        name: '油船'
+                    },
+                    {
+                        // value: data['0'].value['2'] + data['1'].value['2'] + data['2'].value['2'],
+                        value: 10,
+                        name: '半潜船'
+                    },
+                    {
+                        // value: data['0'].value['3'] + data['1'].value['3'] + data['2'].value['3'],
+                        value: 10,
+                        name: '拖轮'
+                    },
+                    {
+                        // value: data['0'].value['4'] + data['1'].value['4'] + data['2'].value['4'],
+                        value: 10,
+                        name: '甲板船'
+                    },
+                    {
+                        // value: data['0'].value['5'] + data['1'].value['5'] + data['2'].value['5'],
+                        value: 10,
+                        name: '3+2轴低平板半挂车'
+                    },
+                    {
+                        // value: data['0'].value['6'] + data['1'].value['6'] + data['2'].value['6'],
+                        value: 10,
+                        name: '3轴底平板半挂车'
+                    },
+                    {
+                        // value: data['0'].value['7'] + data['1'].value['7'] + data['2'].value['7'],
+                        value: 10,
+                        name: '波音757-200SF货机'
+                    },
+                    {
+                        // value: data['0'].value['8'] + data['1'].value['8'] + data['2'].value['8'],
+                        value: 10,
+                        name: '25G型铁路客车'
+                    },
+                ],
+                legend: {
+                    show: true,
+                    orient: 'vertical',
+                    x: 'right',
+                    y: 'top',
+                    data: data2
+                },
+                itemStyle: {
+                    normal: {
+                        borderWidth: 3,
+                        borderColor: '#ffffff',
+                    },
+                    emphasis: {
+                        borderWidth: 3,
+                        shadowBlur: 10,
+                        shadowOffsetX: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                }
+            }
+        ]
+    }
+
+    function tooltipFormatter(params) {
+        console.log(params)
+        let valuesFormatter = [];
+        if(params.componentSubType == 'pie'){
+            valuesFormatter.push(
+                '<div style="border-bottom: 1px solid rgba(255,255,255,.3); font-size: 18px;padding-bottom: 7px;margin-bottom: 7px">' +
+                params.data.name + '<br>' + '</div>' +
+                '<span style="color:' + params.color + '">' + params.seriesName + '</span>: ' + params.data.value
+            )
+        }else {
+            valuesFormatter.push(
+                '<div style="border-bottom: 1px solid rgba(255,255,255,.3); font-size: 18px;padding-bottom: 7px;margin-bottom: 7px">' +
+                params.name + '<br>' + '</div>' +
+                '<span style="color:' + params.color + '">' + params.seriesName + '</span>: ' + params.value
+            )
+        }
+        console.log(valuesFormatter)
+        return valuesFormatter;
+    }
+    EchartsPie.setOption(option)
+</script>
+</html>

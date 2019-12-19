@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--添加对CSS和API的引用-->
+    <link rel="stylesheet" href="https://js.arcgis.com/4.13/esri/themes/light/main.css">
+    <script src="https://js.arcgis.com/4.13/"></script>
+    <style>
+        html, body, #viewDiv {
+            padding: 0;
+            margin: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+<div id="viewDiv"></div>
+</body>
+<script>
+    //如何从ArcGIS Online加载和显示与配置的Web地图。
+    //应用程序可以加载和和显示2D网络地图先前使用地图浏览器要么ArcGIS Pro(专业版)。Web地图包含设置地图所需的所有设置，
+    //例如范围，底图，图层和样式，弹出窗口和标签。网络地图存储为项目在ArcGIS Online要么ArcGIS企业版门户网站。通过访
+    //问门户并通过ID请求项目来接在Web地图。加载项目时，所有设置都将应用到地图和图层，从而节省了我们自己设置的时间。
+    //在‘创建网络地图’教程中或使用ArcGIS Pro了解有关使用网络地图的更多信息。
+
+    //我们将构建一个应用程序，该应用程序加载并显示储存在其中的预先配置的网络地图。ArcGIS Online
+
+    require([
+        'esri/WebMap',
+        'esri/views/MapView',
+
+        //add
+        'esri/widgets/Legend',
+        'esri/widgets/ScaleBar'
+    ],function(WebMap,MapView,Legend,ScaleBar){
+        //创建一个新代码Webpack和一个新代码MapView。将portalItem(项目门户) ID设置为41281c51f9de45edaf1c8ed44bb10e30
+        let map = new WebMap({
+            portalItem: {
+                id:  "41281c51f9de45edaf1c8ed44bb10e30"
+            }
+        });
+        let view = new MapView({
+            container: 'viewDiv',
+            map,
+        });
+
+
+        //添加图例和比例尺
+        //为了使我们的地图应用更有意义，请尝试添加Legend和ScaleBar小部件。创建一个Legend小部件，然后将其添加到
+        //top-right视图的位置DefaultUI。现在尝试ScaleBar和bottom-left角落添加一个。访问文档以了解有关小部件
+        //以及如何在视图中放置小部件的更多信息。
+
+        //add
+        let legend = new Legend({
+            view: view
+        });
+        view.ui.add(legend,'top-right');
+
+        let scalebar = new ScaleBar({
+            view: view
+        });
+        view.ui.add(scalebar,'bottom-left')
+
+    });
+
+    //探索其他网络地图
+    //ArcGIS Online 包含了数以千记的公共Web地图，可以由应用程序加载。去ArcGIS Online并搜索洛杉矶周围的网络地图。随意
+    //搜索任何感兴趣的主题。找到所需要的网络地图后，请在‘地图查看器’中将其打开，然后复制ID(提示：查看URL的末尾)并将其粘贴
+    //到此应用程序中。运行该应用程序以查看您的应用程序中的网络地图。
+</script>
+</html>

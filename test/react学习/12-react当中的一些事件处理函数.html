@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="root"></div>
+</body>
+<script src="js/babel.js"></script> <!--提供shiv方法，或者es6中的一些方法-->
+<script src="js/react.js"></script> <!--react核心库，提供react中的一些核心方法-->
+<script src="js/react-dom.js"></script> <!--提供react操作dom的api-->
+<script type="text/babel">
+    const {Component} = React
+    class Element extends Component {
+        handleChange = () => {
+            console.log('父元素进行了点击')
+        };
+        render() {
+            return (
+                <div>
+                    <Tost onClick = {this.handleChange}/>
+                </div>
+            )
+        }
+    }
+    class Tost extends Component {
+        constructor (props) {
+            super(props);
+        }
+        //第一种写法  onClick = {this.handleClick.bind(this)}
+        // handleClick (e) {
+        //     console.log(this);
+        //     console.log(e.target);
+        // }
+        //第二种写法
+        handleClick = (e) => {
+            console.log(this);
+            console.log(e.target)
+        };
+        handleStop = (e) => {
+            e.preventDefault();
+        };
+        render() {
+            return (
+                <div onClick= {this.props.onClick}>
+                    <button >点我啊</button>
+                    <a href="https://www.baidu.com" onClick={this.handleStop}>百度一下，你就知道</a>
+                </div>
+            )
+        }
+    };
+    ReactDOM.render(<Element/>,document.getElementById('root'))
+</script>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<script src="js/Dojo.js"></script>
+<body>
+<h1 id="greeting">Dojo ready </h1>
+</body>
+<script>
+    require([
+        'dojo/dom',
+        'dojo/fx',
+        'dojo/domReady!'
+    ],function(dom) {
+        let greeting = dom.byId('greeting');
+        greeting.innerHTML += 'from dojo';
+
+        //添加动画效果
+        fx.slideTo({
+            node: greeting,
+            top: 100,
+            left: 200
+        }).play()
+    })
+</script>
+
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .box {
+            width: 100px;
+            height: 100px;
+            background: #f00;
+        }
+    </style>
+</head>
+<body>
+<div id="root"></div>
+</body>
+<script src="js/babel.js"></script> <!--提供shiv方法，或者es6中的一些其他方法-->
+<script src="js/react.js"></script> <!--react的核心库，提供react的核心方法-->
+<script src="js/react-dom.js"></script> <!--提供react操作dom的API-->
+<script type="text/babel">
+    const {Component} = React;
+
+    class Container extends Component {
+        constructor(props) {
+            super(props);
+            this.state = {
+                isShow: true
+            }
+        }
+        handleChange = ()=>{
+           this.setState ({
+               isShow: !this.state.isShow
+           })
+        }
+        render() {
+            const _this = this;
+            function ShowBox () {
+                if( _this.state.isShow) {
+                   return <Demo/>
+                }else {
+                    return null
+                }
+            }
+            return (
+                <div>
+                    <button onClick={this.handleChange}>开关</button>
+                    {this.state.isShow ? <Demo/> : null}
+
+                </div>
+            )
+        }
+    };
+    class Demo extends Component {
+        render() {
+            return (
+                <div>
+                    <div className="box">
+
+                    </div>
+                </div>
+            )
+        }
+    };
+    ReactDOM.render(<Container/>,document.getElementById('root'))
+</script>
+</html>

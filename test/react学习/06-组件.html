@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="root"></div>
+</body>
+<script src="js/babel.js"></script> <!--提供shiv方法，或者es6的一些方法-->
+<script src="js/react.js"></script> <!--react的核心库，提供react的一些核心方法-->
+<script src="js/react-dom.js"></script> <!--提供react操作dom的api-->
+<script type="text/babel">
+    //元素渲染
+    // let data = new Date();
+    // let day = data.getDay();
+    // const element = (
+    //     <h1>今天是星期{day}</h1>
+    // );
+    // ReactDOM.render(element,document.getElementById('root'))
+
+    //组件渲染在react有两种写法，组件一律使用大写字母开头
+    //第一种：用函数，函数是最简单的组件
+    // function Element() {
+    //     let data = new Date();
+    //     let day = data.getDay();
+    //     return (
+    //         <h1>今天是星期{day}</h1>
+    //     )
+    // }
+    // function Container () {
+    //     return (
+    //         <div>
+    //             <h1>这是描述时间的页面</h1>
+    //             <Element />
+    //             <Element />
+    //         </div>
+    //     )
+    // }
+    // ReactDOM.render(<Container />,document.getElementById('root'))
+
+    //使用父子传值。
+    function Element (params) {
+        console.log(params)
+        return (
+            <div>
+                <h1>今天是星期{params.day}</h1>
+            </div>
+        )
+    }
+    function Container () {
+        let data = new Date();
+        let day = data.getDay();
+        function Change() {
+            day = 3;
+            console.log(day)
+        }
+        return (
+            <div>
+                <h1>只是描述时间的页面</h1>
+                <button onClick={Change}>修改day的值</button>
+                <Element day={day} abc='1,2,3'/>
+                <Element day={day}/>
+            </div>
+        )
+    }
+    ReactDOM.render(<Container />,document.getElementById('root'))
+</script>
+</html>

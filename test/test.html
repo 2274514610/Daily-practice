@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        window.onload = function () {
+            let fs = document.documentElement.clientWidth * 100/1920;
+            document.querySelector("html").style.fontSize = fs+"px";
+        }
+    </script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        body,html{
+            width: 100%;
+            background-color:skyblue;
+
+        }
+        .box {
+            width: 100%;
+            height: 300px;
+
+        }
+        .content {
+            overflow: hidden;
+            width: 19.20rem;
+            height: 300px;
+            margin: 0 auto;
+        }
+        .left {
+            float: left;
+            width: 9.6rem;
+            height: 100px;
+            background-color: red;
+        }
+        .left1 {
+            width: 900px;
+            height: 300px;
+            background: blue;
+            margin-bottom: 10px
+        }
+        .left2 {
+            width: 900px;
+            height: 300px;
+            background: pink;
+            margin-bottom: 10px;
+        }
+        .left3 {
+            width: 900px;
+            height: 300px;
+            background: red;
+        }
+        .right {
+            float: right;
+            width: 9.6rem;
+            height: 100px;
+            background-color: green;
+        }
+        .right1 {
+            width: 500px;
+            height: 300px;
+            background: red;
+            margin-bottom: 10px
+        }
+        .right2 {
+            width: 900px;
+            height: 300px;
+            background: aquamarine;
+            margin-bottom: 10px
+        }
+        .right3 {
+            width: 900px;
+            height: 300px;
+            background: yellow;
+        }
+        #abc{
+            width: 0.56rem;
+            height: 0.55rem;
+            background-color: black;
+        }
+    </style>
+</head>
+<body>
+<div class="box">
+    <div class="content">
+        <div class="left">
+<!--            <div class="left1">左1</div>-->
+<!--            <div class="left2">左2</div>-->
+<!--            <div class="left3">左3</div>-->
+        </div>
+        <div class="right">
+<!--            <div class="right1">右1</div>-->
+<!--            <div class="right2">右2</div>-->
+<!--            <div class="right3">右3</div>-->
+        </div>
+    </div>
+    <div id="abc">
+
+    </div>
+</div>
+</body>
+
+</html>

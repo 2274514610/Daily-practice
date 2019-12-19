@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="root"></div>
+</body>
+<script src="js/babel.js"></script> <!--提供shiv方法，或者es6中的一些方法-->
+<script src="js/react.js"></script> <!--react核心库，提供react核心方法-->
+<script src="js/react-dom.js"></script> <!--提供react操作dom的api-->
+<script type="text/babel">
+    const {Component} = React
+
+    class Element extends Component{
+        constructor(props){
+            super(props)
+            this.state = {
+                str: '我是要传入的参数'
+            }
+        }
+        componentWillMount() {
+            console.log(document.querySelector('#title'),'componentWillMount')
+        }
+        componentDidMount() {
+            console.log(document.querySelector('#title'),'componentDidMount')
+        }
+        componentWillUpdate() {
+            console.log('componentWillUpdate:我是父组件，我马上要更新了')
+        }
+        componentDidUpdate() {
+            console.log('componentDidUpdate:我是父组件，我更新完成了')
+        }
+        handleChange() {
+            this.setState ({
+                str: '我修改了将要传入的参数'
+            })
+        }
+        render() {
+            return (
+                <div>
+                    <div id="title">react生命周期</div>
+                    <button onClick = {this.handleChange.bind(this)}>点我</button>
+                    <Title text={this.state.str}/>
+                </div>
+            )
+        }
+    }
+    class Title extends Component {
+        constructor(props) {
+            super(props)
+        }
+        componentWillUpdate() {
+            console.log('componentWillUpdate:我是子组件，我马上要更新了')
+        }
+        componentDidUpdate() {
+            console.log('componentDidUpdate:我是子组件，我更新完成了')
+        }
+        render() {
+            return (
+                <div>
+                    <div>我是Title组件</div>
+                    <div>{this.props.text}</div>
+                </div>
+            )
+        }
+    }
+    ReactDOM.render(<Element />,document.getElementById('root'))
+</script>
+</html>

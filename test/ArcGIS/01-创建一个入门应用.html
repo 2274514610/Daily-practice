@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+    <title>Title</title>
+    <!--添加对CSS和API的引用-->
+    <link rel="stylesheet" href="https://js.arcgis.com/4.13/esri/themes/light/main.css">
+    <script src="https://js.arcgis.com/4.13/"></script>
+    <style>
+        html,body,#viewDiv {
+            padding: 0;
+            margin: 0;
+            height: 100%;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="viewDiv"></div>
+</body>
+<script>
+    //2D地图(MapView)
+    // require([
+    //     'esri/Map',
+    //     'esri/views/MapView'
+    // ],function(Map,MapView) {
+    //     var map = new Map({
+    //         basemap: 'topo-vector'
+    //     });
+    //     var view = new MapView ({
+    //         container: 'viewDiv',
+    //         map: map,
+    //         center: [-118.80500,34.02700], //经度，纬度
+    //         zoom: 13  //缩放
+    //     });
+    // });
+
+    //3D场景(SceneView)
+    require([
+        'esri/Map',
+        'esri/views/SceneView'
+    ],function (Map,SceneView) {
+        var map = new Map({
+            basemap: 'streets-navigation-vector',
+            ground: 'world-elevation' //显示海拔高度
+        });
+        var view = new SceneView ({
+            container: 'viewDiv',
+            map: map,
+            camera: {
+                position: { //观察点
+                    x: -118.80800,
+                    y: 33.96100,
+                    z: 25000 // 海拔米
+                },
+                tilt: 65 //倾斜角
+            }
+        })
+    })
+</script>
+</html>

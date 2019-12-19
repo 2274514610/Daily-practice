@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--添加对CSS和API的引用-->
+    <link rel="stylesheet" href="https://js.arcgis.com/4.13/esri/themes/light/main.css">
+    <script src="https://js.arcgis.com/4.13/"></script>
+    <style>
+        html, body, #viewDiv {
+            padding: 0;
+            margin: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+<div id="viewDiv"></div>
+</body>
+<script>
+    require([
+        'esri/Map',
+        'esri/views/MapView',
+        //add
+        'esri/layers/FeatureLayer'
+    ],function(Map,MapView,FeatureLayer) {
+        let map = new Map({
+            basemap: 'topo-vector'
+        });
+        let view = new MapView({
+            container: 'viewDiv',
+            map,
+            center: [-118.80500,34.02700], //经度，纬度
+            zoom: 13 //缩放
+        });
+        //创建一个trailheadsRenderer对象，并把它定义为一个simple渲染器和设置符号专属性绘制一个徒步旅行者图像是一个
+        //picture-marker,18px在尺寸为每个点。使用url下面的图像。
+        let trailheadsRenderer = {
+            type: 'simple',
+            symbol: {
+                type: 'picture-marker', //图片标记
+                url: 'http://static.arcgis.com/images/Symbols/NPS/npsPictograph_0231b.png',
+                width: '18px',
+                height: '18px'
+            }
+        };
+        //要显示路径名称标签，请创建一个TrailheadsLabels对象以定义labelingInfo(标签信息)。设置symbol以#FFFFFF使用绿色
+        //#5E8D74光环将标签绘制为白色，将其放置在特征上方的中心位置，并使用简单的表达式引用该TRL_NAME字段(要渲染的数据)。
+        let trailheadsLabels = {
+            symbol: {
+                type: 'text',
+                color: '#ffffff',
+                haloColor: '#5E8D74',   //halo 光环/光晕
+                haloSize: '2px',
+                font: {
+                    size: '12px',
+                    family: 'Noto Sans',
+                    style: 'italic',
+                    weight: 'normal'
+                }
+            },
+            labelPlacement: 'above-center',  //Placement  布置/放置
+            labelExpressionInfo: {  //标签表达信息
+                expression: '$feature.TRL_NAME'    //feature 特征/特点
+            }
+        };
+        //创建trailheads FeatureLayer和设置url,renderer和labelingInfo属性上面创建的对象，并把它添加到地图中。
+        let trailheads = new FeatureLayer ({
+            url: 'https://services3.arcgis.com/GVgbJbqm8hXASVYi/arcgis/rest/services/Trailheads/FeatureServer/0',
+            renderer: trailheadsRenderer,   //renderer 渲染器
+            labelingInfo: [trailheadsLabels]
+        });
+        map.add(trailheads,0);
+
+
+
+        //设置路径图层的样式以显示仅自行车的路径
+        //在主功能的代码的底部，创建一个simple与符号是一个渲染对象的simple-line,short-dot,粉红色#FF91FF,1px宽线。
+        let bikeTrailsRenderer = {
+            type: 'simple',
+            symbol: {
+                type: 'simple-line',
+                style: 'short-dot',
+                color: '#FF91FF',
+                width: '2px'
+            }
+        };
+        //创建一个bikeTrails FeatureLayer并将url，renderer和definitionExpression设置为USE_BIKE = 'YES',然后将其
+        //添加到地图中。
+        let bikeTrails = new FeatureLayer ({
+            url:  "https://services3.arcgis.com/GVgbJbqm8hXASVYi/arcgis/rest/services/Trails/FeatureServer/0",
+            renderer: bikeTrailsRenderer,
+            definitionExpression: "USE_BIKE = 'YES'"
+        });
+        map.add(bikeTrails,1)
+
+
+
+        //风格独特的公园区
+        // 在mine中的function，创建一个UniqueValueRenderer(单值渲染)对象，以对每种类型的公园区域使用不同的符号，定义
+        //一个函数，将为每种公园类型创建一个solid，simple-fill类型符号。接下来，定义一个渲染器，并将类型设置为unique-value，
+        //字段设置为TYPE，并将uniqueValueInfos设置为下面的符号值。   unique 独特的
+        function createFillSymbol (value,color) {
+            return {
+                value: value,
+                symbol: {
+                    color: color,
+                    type: 'simple-fill',
+                    style: 'solid',
+                    outline: {  //轮廓线
+                        style: 'none'
+                    }
+                },
+                label: value
+            };
+        }
+        let openSpacesRenderer = { //打开空间渲染器
+            type: 'unique-value',
+            field: 'TYPE',   //field 字段
+            uniqueValueInfos: [
+                createFillSymbol('Natural Areas','#9e559c'),
+                createFillSymbol('Regional Open Space','#a7c636'),
+                createFillSymbol('Local Park','#149ece'),
+                createFillSymbol('Regional Recreation Park','#ed5151')
+            ]
+        };
+        //创建一个openspaces FeatureLayer，设置renderer和opacity(0.2属性)，并将其添加到地图
+        let openspaces = new FeatureLayer({
+            url: 'https://services3.arcgis.com/GVgbJbqm8hXASVYi/arcgis/rest/services/Parks_and_Open_Space/FeatureServer/0',
+            renderer: openSpacesRenderer,
+            opacity: 0.20
+        });
+        map.add(openspaces,0)
+    })
+
+    //可以访问渲染器和视觉变量文档，以了解更多有关可以为数据创建的样式和可视化类型的信息。
+</script>
+</html>

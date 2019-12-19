@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--添加对CSS和API的引用-->
+    <link rel="stylesheet" href="https://js.arcgis.com/4.13/esri/themes/light/main.css">
+    <script src="https://js.arcgis.com/4.13/"></script>
+    <style>
+        html, body, #viewDiv {
+            padding: 0;
+            margin: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+<div id="viewDiv"></div>
+</body>
+<script>
+    // 应用程序可以访问和显示托管在其上的栅格和矢量图块底图ArcGIS Online要么ArcGIS企业版。
+    // 应用程序还可以显示您使用ArcGIS Online。
+    // 要构建可以在底图之间切换的应用程序，可以使用BasemapToggle或BasemapGallery窗口小部件。
+    // 该BasemapToggle小部件允许您在定义的两个底图之间切换，
+    // 而BasemapGallery小部件允许您从属于ArcGIS Online组的多个底图中进行选择。
+    // 您可以使用Esri托管的一组底图，也可以使用专门为应用程序组成的一组底图。
+    // 要了解有关设计和设置自己的底图的更多信息，请访问“为矢量底图设置样式”教程。
+
+    //我们将使用BasemapToggle和BasemapGallery小部件来选择和显示ArcGIS Online中托管的底图。
+
+    //切换底图
+    //启用两个底图之间的选择的最简单的方法之一是使用BasemapToggle小部件。在此步骤中，我们将配置
+    //窗口小部件以在"地形"底图和"卫星"底图之间切换。
+
+    //在require语句中，添加对BasemapToggle and BasemapGallery模块的引用并更新函数参数。
+    //第二个模块将在以后的步骤中使用。
+
+    //卫星底图和拓扑底图之间的切换
+    // require([
+    //     'esri/Map',
+    //     'esri/views/MapView',
+    //     //add
+    //     'esri/widgets/BasemapToggle',   //widgets 窗口小部件
+    // ],function(Map,MapView,BasemapToggle){
+    //     var map = new Map({
+    //         basemap: 'topo-vector'
+    //     });
+    //     var view = new MapView({
+    //         container: 'viewDiv',
+    //         map: map,
+    //         center: [-118.80500,34.02700], //经度，纬度
+    //         zoom: 13  //缩放
+    //     });
+    //     //创建一个BasemapToggle小部件
+    //     var basemapToggle = new BasemapToggle({
+    //         view: view,
+    //         nextBasemap: 'satellite'
+    //     });
+    //     //将小部件添加到视图，将其添加到视图的右下角DefaultUI
+    //     view.ui.add(basemapToggle,'bottom-right')
+    // });
+
+    //从ArcGIS Online组中选择底图
+    //选择底图的另一种方法是使用BasemapGallery小部件。在此步骤中，我们将使用小部件从
+    //ArcGIS Online组中加载底图，以便用户可以选择和显示底图。
+    // require([
+    //     'esri/Map',
+    //     'esri/views/MapView',
+    //     //add
+    //     'esri/widgets/BasemapGallery'
+    // ],function(Map,MapView,BasemapGallery){
+    //     var map = new Map({
+    //         basemap: 'topo-vector'
+    //     });
+    //     var view = new MapView({
+    //         container: 'viewDiv',
+    //         map,
+    //         center: [-118.80500,34.02700], //经度，纬度
+    //         zoom: 13 //缩放
+    //     });
+    //     var basemapGallery = new BasemapGallery({
+    //         view,
+    //         source: {  //来源
+    //             protal: { //门户网站
+    //                 url: 'https://www.arcgis.com',
+    //                 useVectorBasemaps:true //加载矢量图块底图层
+    //             }
+    //         }
+    //     });
+    //     //通过将小部件添加到视图的右上角 DefaultUI。
+    //     view.ui.add(basemapGallery,'top-right')
+    // })
+
+    //加载栅格图块底图
+    require([
+        'esri/Map',
+        'esri/views/MapView',
+        'esri/widgets/BasemapGallery'
+    ],function(Map,MapView,BasemapGallery) {
+        let map = new Map({
+            basemap: 'topo-vector'
+        });
+        let view = new MapView({
+            container:'viewDiv',
+            map: map,
+            center: [-118.80500,34.02700], //经度，纬度
+            zoom: 13 //缩放
+        });
+        let basemapGallery = new BasemapGallery({
+            view,
+            source: {
+                protal: {
+                    url: 'https://www.arcgis.com',
+                    //add
+                    useVectorBasemaps: false  //加载光栅瓦基图
+                }
+            }
+        })
+    });
+</script>
+</html>

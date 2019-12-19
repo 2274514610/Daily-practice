@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--添加对CSS和API的引用-->
+    <link rel="stylesheet" href="https://js.arcgis.com/4.13/esri/themes/light/main.css">
+    <script src="https://js.arcgis.com/4.13/"></script>
+    <style>
+        html, body, #viewDiv {
+            padding: 0;
+            margin: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+<div id="viewDiv"></div>
+</body>
+<script>
+    //如何使用客户端和服务端SQL和空间表达式来限制地图中显示的数据。
+    //应用程序可以执行服务器端或客户端SQL和空间过滤器，以访问和显示要素图层中的数据。source(来源)要素图层
+    //的数据可以托管在ArcGIS Online要么ArcGIS企业版或者可以从客户端上的数组创建它。
+
+    //服务器端过滤器：要从服务器访问数据的子集而不将要素图层添加到地图，可以definitionExpression(条件显示)
+    //在FeatureLayer(要素图层)对象上设置(SQL表达式)。
+
+    //客户端过滤器：要访问客户端上的数据子集，必须首先将要素图层添加到地图，然后在FeatureLayerView
+    //对象上设置filter属性。过滤器既可以是SQL表达式，也可以示空间表达式。客户端过滤器的执行速度非常快。
+
+    //服务器端过滤和客户端过滤之间的主要区别之一是，只有在将要素图层添加到地图并且存有属性之后，才可以
+    //进行客户端过滤。
+
+    //将服务器端和客户端SQL过滤器应用于Trails功能层。
+
+    //添加要素图层
+    //为Trails创建要素图层，并将其添加到地图。
+    require([
+        //在该require语句中，添加对FeatureLayer模块的引用
+        'esri/Map',
+        'esri/views/MapView',
+        //add
+        'esri/layers/FeatureLayer'
+    ],function(Map,MapView,FeatureLayer) {
+        let map = new Map({
+            basemap: 'topo-vector'
+        });
+        let view = new MapView({
+            container: 'viewDiv',
+            map,
+            center:  [-118.80500,34.02700], //经度，纬度
+            zoom: 13
+        });
+
+        //创建一个FeatureLayer并将其设置url为访问‘Trails(样式化)’特征层，outputFields(输出字段)
+        //并返回所有字段和值，并popupTemplate在弹出内容中显示路径名称和高程增益值。将图层添加到地图。
+        let featureLayer = new FeatureLayer({
+            url: 'https://services3.arcgis.com/GVgbJbqm8hXASVYi/arcgis/rest/services/Trails_Styled/FeatureServer/0',
+            outFields: ['*'], //返回所有字段，以便在客户端查询
+            popupTemplate: { //启用弹出
+                title: '{TRL_NAME}', //显示属性值
+                content: 'The trail elevation gain is {ELEV_GAIN} ft.'  //弹出时显示
+            }
+        });
+        map.add(featureLayer);
+
+        //创建SQL表达式
+        //定义一个SQL表达式列表，并使用该列表生成Select带有每个表达式选项的HTML元素。将元素添加到
+        //top-right视图的。
+        let sqlExpressions = ['TRL_ID = 0','TRL_ID > 0',"USE_BIKE = 'YES'","USE_BIKE = 'No'","ELEV_GAIN < 1000","ELEV_GAIN >1000","TRL_NAME = 'California Coastal Trail'"];
+        let selectFilter = document.createElement('select');
+        selectFilter.setAttribute('class','esri-widget esri-select');
+        selectFilter.setAttribute('style','width:275px;font-family:Avenir Next W00; font-size:1em');
+
+        sqlExpressions.forEach(function(sql) {
+            let option = document.createElement('option');
+            option.value = sql;
+            option.innerHTML = sql;
+            selectFilter.appendChild(option)
+        });
+        view.ui.add(selectFilter,'top-right'); //注意：此时未应用任何筛选器，因此将显示所有数据
+
+        //应用服务器端过滤器
+        //我们可以通过设置来应用服务器端过滤器来限制从要素图层返回的要素definitionExpression(条件显示)。
+
+        //创建一个definitionExpression为要素图层设置的函数。
+        function setFeatureLayerFilter(expression) {
+            featureLayer.definitionExpression = expression;
+        }
+        //将事件处理程序添加到selectFilter元素以获取选定的sql表达式并调用该setFeatureLayerFilter函数
+        selectFilter.addEventListener('change',function(event){
+            // setFeatureLayerFilter(event.target.value);
+            setFeatureLayerViewFilter(event.target.value)
+        })
+
+
+
+        //应用客户端过滤器
+        // 我们可以通过过滤应用客户端过滤器FeatureLayerView的特征已被加载后FeatureLayerView以
+        //准备就绪。这种类型的筛选允许您同时应用SQL表达式和空间关系运算符，并且通常比服务器端筛选器
+        //更快
+
+        //创建一个获取a的函数，FeatureLayerView并filter在图层准备好后将其与SQL表达式一起应用。
+        function setFeatureLayerViewFilter (expression) {
+            view.whenLayerView(featureLayer).then(function(featureLayerView) {
+                // featureLayerView.filter = {
+                //     where: expression
+                // }
+                //add
+                featureLayerView.effect = {
+                    filter: {
+                        where: expression
+                    },
+                    excludedEffect: 'opacity(50%)'
+                }
+            })
+        };
+        //注释掉setFeatureLayerFilter函数，并调用该setFeatureLayerViewFilter函数以将其传递
+        //到所选的sql表达式中。
+
+        //设置排除功能的样式
+        //过滤要素图层时，将仅显示符合条件的要素。如果要显示’排除‘功能以供参考，可以在effect(结果)
+        //上设置属性FeatureLayerView。此属性需要使用filter和excludedEffect(排除在外的结果)来
+        //设置样式和绘制排除的要素。
+
+        //将滤镜替换为下面的效果代码，以显示不透明度为50%的排除功能。在setFeatureLayerViewFilter中
+        //进行
+
+
+
+        //查找并突出显示功能
+        //过滤的另一种形式是使用上的hitTest(点击测试/命中测试)方法在view给定的屏幕位置查找功能。经过view和FeatureLayerView
+        //准备，利用hitTest查找和highlight功能光标已经结束。hitTest会返回所有可见图层的特征，因此有必要
+        //过滤感兴趣图层的结果。
+
+        //注意：高亮显示功能不会向地图添加新图形，而只是将高亮显示功能作为的一部分FeatureLayerView。该
+        //highlightOptions属性可用于更改用于突出显示功能的颜色。
+
+        //添加以下代码以在光标移动时突出显示功能。
+        let highlight;
+        view.whenLayerView(featureLayer).then(function(featureLayerView) {
+            view.on('pointer-move',function(event) {
+                view.hitTest(event).then(function(response){
+                    //只返回特性层的特性
+                    let feature = response.result.filter(function(result) {
+                        return result.graphic.layer === featureLayer;
+                    })[0].graphic;
+                    if(highlight) {
+                        highlight.remove();
+                    }
+                    //突出的特征
+                    highlight = featureLayerView.highlight(feature)
+                })
+            })
+        })
+    })
+</script>
+</html>

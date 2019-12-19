@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="root"></div>
+</body>
+<script src="js/babel.js"></script> <!--提供shiv方法，或者es6中的一些方法-->
+<script src="js/react.js"></script> <!--react的核心库，提供react中的一些核心方法-->
+<script src="js/react-dom.js"></script> <!--提供react操作dom的一些api-->
+<script type="text/babel">
+    const str = '我是字符串';
+    const num = 998;
+    const none = undefined; //在jsx语法中，凡是false相关的值，默认不渲染。这一点是和vue一致的。
+    const person = {
+        firstName: '唐',
+        lastName: '老鸭'
+    };
+
+    function getFullName(firstName, lastName) {
+        return firstName + lastName
+    };
+    const sexNum = 1;
+    const element = (
+        <div>
+            <ul>
+                <li>{str}</li>
+                <li>{num}</li>
+                <li>{none}</li>
+                <li>{getFullName(person.firstName,person.lastName)}</li>
+                <li>我是一个{sexNum == 1 ? '男' : '女'}孩</li>
+            </ul>
+        </div>
+    );
+    ReactDOM.render(element,document.getElementById('root'))
+</script>
+</html>

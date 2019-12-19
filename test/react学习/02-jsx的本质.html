@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="root"></div>
+</body>
+<!--<script src="js/babel.js"></script> &lt;!&ndash;提供shiv方法，和es6中的一些方法&ndash;&gt;-->
+<script src="js/react.js"></script> <!--react的核心库，提供react的一些核心方法-->
+<script src="js/react-dom.js"></script> <!--react提供的一些操作dom的api-->
+<!--使用jsx语法-->
+<!--<script type="text/babel">-->
+<!--    const title = <h1>我是大标题</h1>-->
+<!--    ReactDOM.render(title,document.getElementById('root'))-->
+<!--</script>-->
+
+<!--不使用jsx语法-->
+<!--上面的jsx语法最终会编译成下面的代码-->
+<script>
+    const title = React.createElement('h1',{
+        className: 'title',
+        style: {
+            color:'red'
+        },
+    },'我是大标题');
+    console.log(title);
+    ReactDOM.render(title,document.getElementById('root'))
+</script>
+</html>

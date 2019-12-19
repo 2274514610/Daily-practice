@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .title {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<div id="root"></div>
+</body>
+<script src="js/babel.js"></script> <!--提供shiv方法，或者es6中的一些方法-->
+<script src="js/react.js"></script> <!--react的核心包，存在react中的一些核心方法-->
+<script src="js/react-dom.js"></script> <!--提供react操作dom的api-->
+<script type="text/babel">
+    let str = '我是一个字符串，我要插入到element中'
+    const element = (
+        <div>
+            <h1 className="title">我是大标题</h1>
+            <div>初次学习react，请多指教</div>
+            <p>{str}</p>
+        </div>
+    )
+    ReactDOM.render(element,document.getElementById('root'))
+</script>
+</html>

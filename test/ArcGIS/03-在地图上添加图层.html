@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--添加对CSS和API的引用-->
+    <link rel="stylesheet" href="https://js.arcgis.com/4.13/esri/themes/light/main.css">
+    <script src="https://js.arcgis.com/4.13/"></script>
+    <style>
+        html, body, #viewDiv {
+            padding: 0;
+            margin: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+<div id="viewDiv"></div>
+</body>
+<script>
+    //应用程序可以访问和显示托管在其上的要素图层ArcGIS Online要么ArcGIS企业版。
+    //托管特征层包含具有几何形状和一组属性特性(记录)。每个托管要素层都有一个带有唯一URL的REST端口。
+    //FeatureLayer(要素图层)类可以使用URL访问和绘制地图的点、线、面的特征。如果尚未为托管要素图层预定义
+    //诸如渲染器或弹出窗口之类的属性，则地图将使用默认符号，并且不会启用弹出窗口。
+
+    //我们将在地图上添加Trailheads,Trail和Parks以及托管要素图层的开放空间。
+
+    //添加Trailheads要素图层
+    require([
+        'esri/Map',
+        'esri/views/MapView',
+        //add
+        'esri/layers/FeatureLayer'
+    ],function(Map,MapView,FeatureLayer){
+        let map = new Map({
+            basemap: 'topo-vector'
+        });
+        let view = new MapView({
+            container: 'viewDiv',
+            map,
+            center: [-118.80500,34.02700], //经度，纬度
+            zoom: 13
+        });
+
+        //添加轨迹头特征层(点)
+        let trailheadsLayer = new FeatureLayer({
+            url: 'https://services3.arcgis.com/GVgbJbqm8hXASVYi/arcgis/rest/services/Trailheads/FeatureServer/0'
+        });
+        map.add(trailheadsLayer)
+
+        //添加步道(线)和公园以及开放空间(多边形)要素图层到地图
+        //使用下面的URL和add方法。0将图层添加到集合的开头，以便它们以正确的顺序绘制：多边形、直线和点。
+
+        //添加步道线
+        // let trailsLayer = new FeatureLayer ({
+        //     url: 'https://services3.arcgis.com/GVgbJbqm8hXASVYi/arcgis/rest/services/Trails/FeatureServer/0'
+        // });
+        // map.add(trailsLayer,0);
+        //添加公园以及开放空间
+        let parksLayer = new FeatureLayer({
+            url:'https://services3.arcgis.com/GVgbJbqm8hXASVYi/arcgis/rest/services/Parks_and_Open_Space/FeatureServer/0'
+        });
+        map.add(parksLayer,0);
+
+
+        //在要素图层上设置属性
+        //可以在要素图层上设置其他属性，以更改其绘制和行为方式。将definitionExpression(条件显示)设置为仅绘制海报增益小于
+        //250英尺renderer的路径，a将路径绘制为绿色,a popupTemplate将显示路径名称和弹出窗口中的所有字段。
+
+        //再次运行该应用程序，然后单击跟踪功能。
+        let trailsLayer = new FeatureLayer ({
+            url: 'https://services3.arcgis.com/GVgbJbqm8hXASVYi/arcgis/rest/services/Trails/FeatureServer/0',
+            //add
+            definitionExpression: 'ELEV_GAIN < 250',
+            //add
+            renderer: {
+                type: 'simple', //simple 简单的/简易的
+                symbol: {  //symbol 符号
+                    type: 'simple-line',
+                    color: 'green',
+                    width: '2px'
+                }
+            },
+            //add
+            outFields: ["TRL_NAME","ELEV_GAIN"],  //outFields 返回查询任务的字段
+            //add
+            popupTemplate: {  //启用弹出
+                title: '{TRL_NAME}',  //显示属性值
+                content: 'The trail elevation gain is {ELEV_GAIN} ft.'  //弹出式显示文本
+            }
+        });
+        map.add(trailsLayer,0);
+    })
+    //在'过滤要素图层','查询要素图层','样式要素图层'和'配置弹出窗口'教程中了解有关使用图层的更多信息。
+</script>
+</html>

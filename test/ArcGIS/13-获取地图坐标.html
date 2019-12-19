@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--添加对CSS和API的引用-->
+    <link rel="stylesheet" href="https://js.arcgis.com/4.13/esri/themes/light/main.css">
+    <script src="https://js.arcgis.com/4.13/"></script>
+    <style>
+        html, body, #viewDiv {
+            padding: 0;
+            margin: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+<div id="viewDiv"></div>
+</body>
+<script>
+    //如何显示地图坐标，比例和缩放级别
+    //在view提供了一种与地图进行交互，并检索有关地图位置信息。使用上的属性和事件处理程序，view您可以找到地图或任何屏幕点
+    //位置的当前空间参考信息，纬度和经度，比例和缩放级别。获得这些信息后，您可以在地图上显示该信息，使用它来查找地球上的
+    //其他位置，或者使用它来设置应用程序启动时的初始化范围。地图坐标可以显示在地图的默认坐标系中，也可以以纬度和经度显示
+    //(如果不是默认值)。如有必要，还可以使用GeometryEngine和将坐标投影到其他坐标系 Geometry Service。
+
+    //我们将使用view来显示地图的纬度、经度、比例和缩放级别的坐标
+    require([
+        'esri/Map',
+        'esri/views/MapView',
+
+        //add
+        'esri/widgets/CoordinateConversion'
+    ],function(Map,MapView,CoordinateConversion){
+        let map = new Map({
+            basemap: 'topo-vector'
+        });
+        let view = new MapView({
+            container: 'viewDiv',
+            map,
+            center: [-118.80500,34.02700], //经度，纬度
+            zoom: 13
+        });
+        //添加小部件
+        //为了显示地图坐标信息，创建一个简单的HTML小部件
+        let coordsWidget = document.createElement('div');
+        coordsWidget.id = 'coordsWidget';
+        coordsWidget.className = 'esri-widget esri-component';
+        coordsWidget.style.padding = '7px 15px 5px';
+
+        view.ui.add(coordsWidget,'bottom-right')
+
+        //显示地图信息
+        //view类包含当前坐标信息。使用属性和事件显示地图坐标，比例和缩放级别。
+        //创建一个新功能来更新innerHTML小部件的并显示地图的当前纬度、经度、比例和缩放级别。该函数将获取任何给定的点
+        //并将坐标四舍五入到一组固定的小数组。
+
+        //add
+        function showCoordinates(pt) {
+            // let coords = 'Lat/Lon' + pt.latitude.toFixed(3) + ' ' + pt.longitude.toFixed(3) +
+            //         '| Scale 1:' + Math.round(view.scale * 1) /1 + '| Zoom' + view.zoom;
+
+            //修改
+            let coords = 'Lat/Lon' + pt.x.toFixed(3) + ' ' + pt.y.toFixed(3) +
+                    '| Scale 1:' + Math.round(view.scale * 1)/1 + '|Zoom' + view.zoom;
+            coordsWidget.innerHTML = coords
+        };
+
+        //showCoordinates当视图静止且指针移动时，添加事件和监事处理程序以调用该函数。当视图‘静止’时，它将显示中心位置
+        //当‘指针移动时’,它将显示当前指针位置。使用toMap转换屏幕坐标到地图坐标。 stationary 静止的
+        view.watch('stationary',function(isStationary){
+            showCoordinates(view.center)
+        });
+        view.on('pointer-move',function (evt) {
+            showCoordinates(view.toMap({x:evt.x,y:evt.y}))
+        });
+
+
+        //显示默认的x/y坐标
+        //通过访问点的x和y值来更改输出以显示默认地图坐标
+
+
+        //使用CoordinateConversion小部件
+        //使用coordinateConversion小部件替换自定义坐标小部件，以轻松地以x/y,UTM和十进制度等不同格式显示坐标。删除
+        //现有代码，然后将其替换为一下代码。实施后，请选择其他可用格式。
+        let coordinateConversionWidget = new CoordinateConversion({
+            view: view
+        })
+        view.ui.add(coordinateConversionWidget,'bottom-right')
+    })
+</script>
+</html>

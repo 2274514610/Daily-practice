@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    //纯函数
+    function sum (x,y) {
+        return x + y
+    };
+    //1.只要输入特定，就会得到稳定的结果
+    //2.该函数不会造成不良的后果
+
+    //非纯函数
+    let obj = {
+        name: '贾静雯',
+        sex: 'women'
+    };
+    function change (person,name) {
+        person.name = name;
+        return person
+    };
+    change(obj,'柳岩');
+    //会改变上面对象里面的值
+</script>
+</html>

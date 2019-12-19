@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--添加对CSS和API的引用-->
+    <link rel="stylesheet" href="https://js.arcgis.com/4.13/esri/themes/light/main.css">
+    <script src="https://js.arcgis.com/4.13/"></script>
+    <style>
+        html, body, #viewDiv {
+            padding: 0;
+            margin: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+<div id="viewDiv"></div>
+</body>
+<script>
+    //如何从坐标创建几何图形和图形并将其添加到地图
+
+    //应用程序可以在地图上显示点、线和面的图形。图形由几何图形，符号，一组属性组成，单击后可以显示
+    //弹出窗口。图形通常是通过与地图交互或手动创建要显示在地图上的少量数据来创建的。图形可以直接添加
+    //到视图，图形层或要素层的source(来源/源)属性中。在‘图层和数据’主题以及‘将图层添加到地图’教程中
+    //中了解有关显示地理数据的更多信息。
+
+    //我们将直接将点、线和面图形添加的视图中。将直接从提供的纬度和经度坐标创建几何。
+
+    require([
+        'esri/Map',
+        'esri/views/MapView',
+        //add
+        'esri/Graphic',
+    ], function (Map, MapView, Graphic) {
+        let map = new Map({
+            basemap: 'topo-vector'
+        });
+        let view = new MapView({
+            container: 'viewDiv',
+            map,
+            //add
+            center: [-118.29507, 34.13501], //纬度 经度
+            zoom: 12
+        });
+
+        //添加点图
+        //在require语句中，添加Graphic模块
+        //定义一个point and simpleMarkerSymbol对象，并使用它们创建一个新的点Graphic。创建
+        //图形后，图形将自动广播对象并创建类实例。最后，将图形添加到视图中graphics。在文档中了解
+        //有关自动广播的更多信息。
+        let point = {
+            type: 'point',
+            longitude: -118.29507,  //经度
+            latitude: 34.13501  //纬度
+        };
+        let simpleMarkerSymbol = {
+            type: 'simple-marker',
+            color: [226, 119, 40],  //橙色
+            outline: {
+                color: [255,255,255], //白色
+                width: 1
+            }
+        };
+
+        //add
+        let attributes = {
+            Name: 'I am a point',
+            Park: 'Griffith Park',
+            City: 'Los Angeles'
+        };
+        let popupTemplate = {
+            title: '{Name}',
+            content: 'I live in <b>{Park}</b> in the city of <b>{city}</b>'
+        };
+
+        let pointGraphic = new Graphic({
+            geometry: point,  //几何图形
+            symbol: simpleMarkerSymbol,   //符号
+
+            //add
+            attributes: attributes,
+            popupTemplate: popupTemplate
+        });
+        view.graphics.add(pointGraphic);
+
+        //添加线条图形
+        //定义line和simpleLineSymbol对象，并使用它们创建新Graphic。创建图形后，图形将自动广播
+        //对象并创建类实例。最后，将图形添加到视图中graphics。在文档中谅解有关自动广播的更多信息。
+
+        let simpleLineSymbol = {
+            type: 'simple-line',
+            color: [226,119,40],
+            width: 2
+        };
+        let polyline = {
+            type: 'polyline',
+            paths: [
+                [-118.29026, 34.1816],
+                [-118.26451, 34.09664]
+            ]
+        };
+        let polylineGraphic = new Graphic({
+            geometry: polyline,
+            symbol: simpleLineSymbol
+        })
+        view.graphics.add(polylineGraphic);
+
+        //添加多边形图形
+        //定义一个多边形和simpleFillSymbol对象，并使用它们创建新线Graphic。创建图形后，图像将
+        //自动广播对象并创建类实例。最后，将图形添加到视图中graphics。在文档中了解有关自动广播
+        //的更多信息。
+
+        let polygon = {
+            type:'polygon',
+            rings: [
+                [-118.27653, 34.15121],
+                [-118.2446, 34.15462],
+                [-118.22915, 34.14439],
+                [-118.23327, 34.12279],
+                [-118.25318, 34.10972],
+                [-118.26486, 34.11625],
+                [-118.27653, 34.15121]
+            ]
+        };
+        let simpleFillSymbol = {
+            type: 'simple-fill',
+            color: [227, 139, 79, 0.8],  // orange, opacity 80%
+            outline: {
+                color: [255,255,255],
+                width: 1
+            }
+        };
+        let polygonGraphic = new Graphic({
+            geometry: polygon,
+            symbol: simpleFillSymbol
+        });
+        view.graphics.add(polygonGraphic)
+
+
+
+        //显示一个弹出窗口
+        //图形还可以包含属性，当用户单击它们时，这些属性可以显示在弹出窗口中。属性定义为具有属性和
+        //值的对象。要显示值，您需要定义一个popupTemplate。这些模板非常方便，因为它们可以使您
+        //可以格式化呈现内容（和值）的方式。
+
+
+        //添加图片标记符号
+        //如果要在某个位置绘制图钉或图像，则可以在地图上创建图片标记符号并将其添加到地图。
+
+        let pictureGraphic = new Graphic({
+            geometry: {
+                type: 'point',
+                x: -118.31,
+                y: 34.182
+            },
+            symbol: {
+                type: 'picture-marker',
+                url: 'https://developers.arcgis.com/labs/images/bluepin.png',
+                width: '14px',
+                height: '26px'
+            }
+        });
+        view.graphics.add(pictureGraphic)
+    })
+</script>
+</html>

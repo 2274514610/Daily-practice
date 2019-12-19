@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<button id="btn">点我</button>
+</body>
+<script>
+    //1.this永远指向调用它的对象
+    //2.this的指向只有在调用它的时候才知道，(除了箭头函数，箭头函数在创建时就已经确定了它的指向)
+    // var name = '我是全局的name'
+    // var obj = {
+    //     name:'我是局部的name',
+    //     product(name,sex) {
+    //         console.log(this.name +':'+ this.sex)
+    //     }
+    // };
+    // obj.product();  //局部的name
+    // const fn = obj.product;  //引用数据类型
+    // fn() //==>window.fn()   //全局的name
+
+    //改变this的指向
+    // var cartoon = {
+    //     name:'唐老鸭',
+    //     sex:'man'
+    // };
+    // const Rn = obj.product.bind(cartoon,'name','sex')
+    // Rn()
+
+    //react核心代码之this的指向
+    var name = 'window 的name'
+    class Demo {
+        constructor () {
+            this.name = '我是demo'
+            this.demo = document.getElementById('btn')
+            const _this = this
+            // this.demo.onclick = function () {
+            //     _this.printSome();
+            // }
+            //react核心代码之this的指向
+            const fn = this.printSome;
+            this.demo.onclick = function () {
+                fn.bind(_this)()
+            }
+        }
+        printSome () {
+            console.log(this)
+            console.log(this.name)
+        }
+    }
+    var obj = new Demo()
+</script>
+</html>

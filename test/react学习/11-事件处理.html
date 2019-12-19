@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <demo />
+</div>
+</body>
+<script src="js/vue.js"></script>
+<script>
+    let demo = {
+        template: `
+        <div>
+            <button @click = handleClick($event,123)>点我</button>
+        </div>
+        `,
+        methods: {
+            handleClick($event,num) {
+                console.log($event,num)
+            }
+        }
+    }
+    var vm = new Vue({
+        el: '#app',
+        data: {
+
+        },
+        components: {
+            demo
+        }
+    })
+
+    /*vue和react封装的事件处理函数类似
+    * const fn = this.handleClick();
+    * var btn = document.getElementById('btn');
+    * const _this = this;
+    *btn.onclick = function(){
+    *   fn.call(_this,e,123)
+    * }
+     * */
+</script>
+</html>
