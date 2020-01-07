@@ -62,6 +62,11 @@ module.exports = (env) => {
                             limit: 1024 * 30
                         }
                     }
+                },
+
+                {
+                    test: /\.js$/,
+                    use: 'babel-loader'
                 }
             ]
         },
